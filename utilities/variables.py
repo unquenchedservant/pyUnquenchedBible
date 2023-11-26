@@ -7,3 +7,5 @@ def init():
     reading_plan = "pgh"
     global reading_position
     reading_position = 1
+    global bible_version
+    bible_version="NIV"

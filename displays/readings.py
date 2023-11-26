@@ -1,5 +1,6 @@
 import curses
 import sys
+import webbrowser
 from utilities import variables as var, menu as m
 def display(stdscr):
     cursor_y = var.reading_position
@@ -32,6 +33,7 @@ def display(stdscr):
         option_8 = "8. Joshua 1"
         option_9 = "9. Isaiah 1"
         option_10 = "10. Acts 1"
+        option_11 = "11. Main Menu"
     while(True):
         stdscr.clear()
         m.title(stdscr, title_str)
@@ -64,6 +66,35 @@ def display(stdscr):
             var.reading_position = cursor_y
         elif k == 10:
             print("coming soon")
+        elif k == ord('r'):
+            parts = []
+            if cursor_y == 1:
+                parts = option_1.split()[1:]
+            elif cursor_y == 2:
+                parts = option_2.split()[1:]
+            elif cursor_y == 3:
+                parts = option_3.split()[1:]
+            elif cursor_y == 4:
+                parts = option_4.split()[1:]
+            elif cursor_y == 5:
+                parts = option_5.split()[1:]
+            elif cursor_y == 6:
+                parts = option_6.split()[1:]
+            elif cursor_y == 7:
+                parts = option_7.split()[1:]
+            elif cursor_y == 8:
+                parts = option_8.split()[1:]
+            elif cursor_y == 9:
+                parts = option_9.split()[1:]
+            elif cursor_y == 10:
+                parts = option_10.split()[1:]
+            if cursor_y != 11:
+                url = "https://www.biblegateway.com/passage/?search="
+                for part in parts:
+                    url = url + part + "+"
+                url = url[:-1] #takes out extra +
+                url = url + "&version=" + var.bible_version
+                webbrowser.open(url)
         elif k == ord('1'):
             cursor_y = 1
             var.reading_position = cursor_y
@@ -91,9 +122,6 @@ def display(stdscr):
         elif k == ord('9'):
             cursor_y == 9
             var.reading_position = cursor_y
-        elif k == ord('10'):
-            cursor_y == 10
-            var.reading_position = cursor_y 
 def start():
     curses.wrapper(display)
     
