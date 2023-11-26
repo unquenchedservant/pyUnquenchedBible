@@ -21,10 +21,9 @@ def main_menu(stdscr):
 
     title_str = "Unquenched Bible"
     status_msg = "Written by Jonathan Thorne | ©2023 | Press 'esc' to quit"
-    option_1 = "1. Coming Soon"
-    option_2 = "2. Coming Soon"
-    option_3 = "3. Coming Soon"
-    option_4 = "4. Quit"
+    option_1 = "1. Today's Reading"
+    option_2 = "2. Settings (Coming Soon)"
+    option_3 = "3. Quit"
 
     while(True):
         stdscr.clear()
@@ -33,7 +32,6 @@ def main_menu(stdscr):
         m.menu_option(stdscr, option_1, 1, 1, cursor_y)
         m.menu_option(stdscr, option_2, 2, 1, cursor_y)
         m.menu_option(stdscr, option_3, 3, 1, cursor_y)
-        m.menu_option(stdscr, option_4, 4, 1, cursor_y)
 
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
@@ -43,17 +41,16 @@ def main_menu(stdscr):
         elif k == curses.KEY_UP:
             cursor_y -= 1
             if cursor_y == 0:
-                cursor_y = 4
+                cursor_y = 3
             var.main_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
-            if cursor_y == 5:
+            if cursor_y == 4:
                 cursor_y = 1
             var.main_position = cursor_y
-        #TODO: add options for key right
         elif k == 10:
             char = int.from_bytes(stdscr.instr(cursor_y, 1, 1), byteorder='little')
-            if char == ord('4'):
+            if char == ord('3'):
                 sys.exit()
         elif k == ord('1'):
             cursor_y = 1
@@ -63,9 +60,6 @@ def main_menu(stdscr):
             var.main_position = cursor_y
         elif k == ord('3'):
             cursor_y = 3
-            var.main_position = cursor_y
-        elif k == ord('4'):
-            cursor_y = 4
             var.main_position = cursor_y
         
 def start():
