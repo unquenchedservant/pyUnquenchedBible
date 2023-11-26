@@ -68,3 +68,5 @@ def main_menu(stdscr):
             cursor_y = 4
             var.main_position = cursor_y
         
+def start():
+    curses.wrapper(main_menu)
