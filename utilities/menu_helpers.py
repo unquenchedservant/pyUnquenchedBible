@@ -1,5 +1,5 @@
 from utilities import variables as var
-from display import main
+from displays import main
 """
 gets the title for the menu based on menu_type (authors, ) and sort_int(1-4 or 1 if not sortable)
 """
