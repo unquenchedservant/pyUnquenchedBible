@@ -1,4 +1,4 @@
-from display import main as main_menu 
+from displays import main as main_menu 
 from utilities import variables as var
 
 if __name__ == "__main__":

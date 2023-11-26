@@ -1,6 +1,7 @@
 import curses
 import sys
 from utilities import variables as var, menu as m
+from displays import readings
 def main_menu(stdscr):
     cursor_y = var.main_position
     cursor_x = 1
@@ -50,6 +51,8 @@ def main_menu(stdscr):
             var.main_position = cursor_y
         elif k == 10:
             char = int.from_bytes(stdscr.instr(cursor_y, 1, 1), byteorder='little')
+            if char == ord('1'):
+                readings.start()
             if char == ord('3'):
                 sys.exit()
         elif k == ord('1'):
