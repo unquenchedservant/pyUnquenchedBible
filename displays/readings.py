@@ -68,6 +68,27 @@ def display(stdscr):
             var.reading_position = cursor_y
         elif k == 10 and cursor_y == 11:
             mh.back()
+        elif k == ord('d'):
+            if cursor_y == 1:
+                print("Cursor position 1")
+            elif cursor_y == 2:
+                print("Cursor position 2")
+            elif cursor_y == 3:
+                print("Cursor position 3")
+            elif cursor_y == 4:
+                print("Cursor position 4")
+            elif cursor_y == 5:
+                print("cursor position 5")
+            elif cursor_y == 6:
+                print("Cursor position 6")
+            elif cursor_y == 7:
+                print("Cursor position 7")
+            elif cursor_y == 8:
+                print("Cursor position 8")
+            elif cursor_y == 9:
+                print("Cursor position 9")
+            elif cursor_y == 10:
+                print("cursor position 10")
         elif k == ord('r'):
             parts = []
             if cursor_y == 1:
