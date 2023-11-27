@@ -21,7 +21,7 @@ def display(stdscr):
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
     title_str = "Unquenched Bible"
-    status_msg = "Written by Jonathan Thorne | ©2023 | Press 'esc' to quit"
+    status_msg = "Press 'r' to Read | Press 'd' to Mark Done |  Press 'esc' to quit"
     if var.reading_plan == "pgh":
         option_1 = "1. Matthew 1"
         option_2 = "2. Genesis 1"
