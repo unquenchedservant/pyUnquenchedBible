@@ -37,44 +37,13 @@ def get_title(sort_int):
 #        return "Vol {} ({}) - Issue {}".format(var.volume_number, var.volume_year, number)
 #    elif var.menu_type == "articles" or var.menu_type == "author_articles":
 #        return string_handler.display_string(display, width, var.menu_type)
+
+
+def back():
+    if var.menu_type == "readings":
+        main.start()
+
 '''
-
-#def back():
-#    if var.menu_type == "authors" or var.menu_type == "volume":
-#        main.start()
-#    elif var.menu_type == "issue":
-#        var.issue_y_pos = 0
-        var.articles_y_pos = 0
-        var.authors_y_pos = 0
-        var.author_articles_y_pos = 0
-        var.author_current_page = 0
-        var.author_name = ""
-        var.volume_year = 0
-        var.volume_number = 0
-        var.issue_number = 0
-        var.menu_type = "volume"
-        displays.start()
-    elif var.menu_type == "articles":
-        var.articles_y_pos = 0
-        var.authors_y_pos = 0
-        var.author_articles_y_pos = 0
-        var.author_current_page = 0
-        var.author_name = 0
-        var.menu_type = "issue"
-        displays.start()
-    elif var.menu_type == "author_articles":
-        var.volume_y_pos = 0
-        var.issue_y_pos = 0
-        var.articles_y_pos = 0
-        var.author_articles_y_pos = 0
-        var.volume_number = 0
-        var.volume_year = 0
-        var.volume_current_page = 0
-        var.issue_number = 0
-        var.menu_type = "authors"
-        displays.start()
-
-
 def get_status_bar(current_page, num_pages, sort_int):
     menuStr1 = "'m' : Main Menu"
     menuStr2 = "'m'/esc : Main Menu"

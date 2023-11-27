@@ -3,6 +3,7 @@ import sys
 from utilities import variables as var, menu as m
 from displays import readings
 def main_menu(stdscr):
+    var.menu_type = "main"
     cursor_y = var.main_position
     cursor_x = 1
     k = 0

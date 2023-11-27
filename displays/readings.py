@@ -1,8 +1,9 @@
 import curses
 import sys
 import webbrowser
-from utilities import variables as var, menu as m
+from utilities import variables as var, menu as m, menu_helpers as mh
 def display(stdscr):
+    var.menu_type="readings"
     cursor_y = var.reading_position
     cursor_x = 1
     k = 0
@@ -21,7 +22,7 @@ def display(stdscr):
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
     title_str = "Unquenched Bible"
-    status_msg = "Press 'r' to Read | Press 'd' to Mark Done |  Press 'esc' to quit"
+    status_msg = "Press 'r' to Read | Press 'd' to Mark Done |  Press 'esc' to go back"
     if var.reading_plan == "pgh":
         option_1 = "1. Matthew 1"
         option_2 = "2. Genesis 1"
@@ -48,24 +49,25 @@ def display(stdscr):
         m.menu_option(stdscr, option_8, 8, 1, cursor_y)
         m.menu_option(stdscr, option_9, 9, 1, cursor_y)
         m.menu_option(stdscr, option_10, 10, 1, cursor_y)
+        m.menu_option(stdscr, option_11, 11, 1, cursor_y)
 
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
         k = stdscr.getch()
         if k == 27 or k == ord('q'):
-            sys.exit()
+            mh.back()
         elif k == curses.KEY_UP:
             cursor_y -= 1
             if cursor_y == 0:
-                cursor_y = 10
+                cursor_y = 11
             var.reading_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
-            if cursor_y == 11:
+            if cursor_y == 12:
                 cursor_y = 1
             var.reading_position = cursor_y
-        elif k == 10:
-            print("coming soon")
+        elif k == 10 and cursor_y == 11:
+            mh.back()
         elif k == ord('r'):
             parts = []
             if cursor_y == 1:
