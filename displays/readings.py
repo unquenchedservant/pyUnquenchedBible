@@ -93,7 +93,7 @@ def display(stdscr):
                 for part in parts:
                     url = url + part + "+"
                 url = url[:-1] #takes out extra +
-                url = url + "&version=" + var.bible_version
+                #url = url + "&version=" + var.bible_version I'd rather just use the default the user has set on biblegateway
                 webbrowser.open(url)
         elif k == ord('1'):
             cursor_y = 1
