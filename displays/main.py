@@ -1,7 +1,9 @@
 import curses
 import sys
-from utilities import variables as var, menu as m
+from utilities import variables as var
+from utilities import menu as m
 from displays import readings
+from displays import settings
 def main_menu(stdscr):
     var.menu_type = "main"
     cursor_y = var.main_position
@@ -24,7 +26,7 @@ def main_menu(stdscr):
     title_str = "Unquenched Bible"
     status_msg = "Written by Jonathan Thorne | ©2023 | Press 'esc' to quit"
     option_1 = "1. Today's Reading"
-    option_2 = "2. Settings (Coming Soon)"
+    option_2 = "2. Settings (WIP)"
     option_3 = "3. Quit"
 
     while(True):
@@ -54,6 +56,8 @@ def main_menu(stdscr):
             char = int.from_bytes(stdscr.instr(cursor_y, 1, 1), byteorder='little')
             if char == ord('1'):
                 readings.start()
+            if char == ord('2'):
+                settings.start()
             if char == ord('3'):
                 sys.exit()
         elif k == ord('1'):

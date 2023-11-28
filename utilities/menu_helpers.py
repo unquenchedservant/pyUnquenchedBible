@@ -40,7 +40,7 @@ def get_title(sort_int):
 
 
 def back():
-    if var.menu_type == "readings":
+    if var.menu_type == "readings" or var.menu_type == "settings":
         main.start()
 
 '''

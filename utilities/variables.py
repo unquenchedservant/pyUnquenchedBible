@@ -9,3 +9,5 @@ def init():
     reading_position = 1
     global bible_version
     bible_version="NIV"
+    global settings_position
+    settings_position = 1
