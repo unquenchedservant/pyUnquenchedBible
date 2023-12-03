@@ -19,13 +19,42 @@ def openLogos(parts):
 def getLogosReference():
     logosReferences = {
         "ESV": "BibleESV",
-        "NIV": "BibleNIV"
+        "NIV": "BibleNIV",
+        "KJV": "BibleKJV",
+        "CSB": "BibleCSB2",
+        "NASB": "BibleNASB95",
+        "NASB2020": "BibleNASB95",
+        "NKJV": "BibleNKJV",
+        "NLT": "BibleNLT",
+        "NET": "BibleNET",
+        "MSG": "Bible",
+        "LEB": "BibleLEB2",
+        # "AMP": "BibleAMP", i don't currently have the AMP in my logos
+        "NRSV": "BibleNRSV",
+        "RSV": "BibleRSV",
+        "PASSION": "Bible",
+        # "NCV": "BibleNCV", I don't currently have the NCV in my logos
+        # "GW": "BibleGW", I don't currently have the GW in my logos
+        "ASV": "BibleKJV"
     }
     return logosReferences[var.bible_version]
 def getLogosResource():
     logos_resources = {
         "ESV": "esv",
-        "NIV": "niv2011"
+        "NIV": "niv2011",
+        "KJV": "kjv1900",
+        "CSB": "csb",
+        "NASB": "nasb95",
+        "NASB2020": "nasb2020",
+        "NKJV": "nkjv",
+        "NLT": "nlt",
+        "NET": "gs-netbible",
+        "MSG": "message",
+        "NRSV": "nsrv",
+        "LEB": "leb",
+        "RSV": "rsv",
+        "PASSION": "pssntrnsltnsngs",
+        "ASV": "asv"
     }
     return logos_resources[var.bible_version]
 def getLogosBook(book):

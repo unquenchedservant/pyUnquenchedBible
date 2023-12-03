@@ -36,16 +36,20 @@ def display(stdscr):
         option_2 = "[{}] NIV".format(getSettingChecked("NIV"))
         option_3 = "[{}] KJV".format(getSettingChecked("KJV"))
         option_4 = "[{}] CSB".format(getSettingChecked("CSB"))
-        option_5 = "[{}] NASB".format(getSettingChecked("NASB"))
+        option_5 = "[{}] NASB1995".format(getSettingChecked("NASB"))
         option_6 = "[{}] NASB2020".format(getSettingChecked("NASB2020"))
         option_7 = "[{}] NKJV".format(getSettingChecked("NKJV"))
         option_8 = "[{}] NLT".format(getSettingChecked("NLT"))
         option_9 = "[{}] NET".format(getSettingChecked("NET"))
         option_10 = "[{}] MSG".format(getSettingChecked("MSG"))
-        option_11 = "[{}] AMP".format(getSettingChecked("AMP"))
+        option_11 = "[{}] LEB".format(getSettingChecked("LEB"))
+        #option_11 = "[{}] AMP".format(getSettingChecked("AMP"))
         option_12 = "[{}] NRSV".format(getSettingChecked("NRSV"))
-        option_13 = "[{}] NCV".format(getSettingChecked("NCV"))
-        option_14 = "[{}] GW".format(getSettingChecked("GW"))
+        option_13 = "[{}] RSV".format(getSettingChecked("RSV"))
+        option_14 = "[{}] Passion".format(getSettingChecked("PASSION"))
+        #option_13 = "[{}] NCV".format(getSettingChecked("NCV"))
+        #option_14 = "[{}] GW".format(getSettingChecked("GW"))
+        option_15 = "[{}] ASV".format(getSettingChecked("ASV"))
         stdscr.clear()
         m.title(stdscr, title_str)
         m.status_bar(stdscr, status_msg)
@@ -64,6 +68,7 @@ def display(stdscr):
         m.menu_option(stdscr, option_13, 13, 1, cursor_y)
         m.menu_option(stdscr, option_14, 14, 1, cursor_y)
         m.menu_option(stdscr, option_15, 15, 1, cursor_y)
+        m.menu_option(stdscr, "Save and Go back", 16, 1, cursor_y)
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
         k = stdscr.getch()
@@ -73,11 +78,11 @@ def display(stdscr):
         elif k == curses.KEY_UP:
             cursor_y -= 1
             if cursor_y == 0:
-                cursor_y = 15
+                cursor_y = 16
             var.reading_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
-            if cursor_y == 16:
+            if cursor_y == 17:
                 cursor_y = 1
             var.reading_position = cursor_y
         elif k == 9:
@@ -102,13 +107,15 @@ def display(stdscr):
             elif cursor_y == 10:
                 var.bible_version = "MSG"
             elif cursor_y == 11:
-                var.bible_version = "AMP"
+                var.bible_version = "LEB"
             elif cursor_y == 12:
                 var.bible_version = "NRSV"
             elif cursor_y == 13:
-                var.bible_version = "NCV"
+                var.bible_version = "RSV"
             elif cursor_y == 14:
-                var.bible_version = "GW"
+                var.bible_version = "PASSION"
+            elif cursor_y == 15:
+                var.bible_version = "ASV"
         elif k == 10:
             #TODO: Add saving here
             mh.back()
