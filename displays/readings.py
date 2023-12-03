@@ -2,6 +2,7 @@ import curses
 import sys
 import webbrowser
 from utilities import variables as var, menu as m, menu_helpers as mh
+from utilities import scripture_helpers as sh
 def display(stdscr):
     var.menu_type="readings"
     cursor_y = var.reading_position
@@ -112,12 +113,10 @@ def display(stdscr):
             elif cursor_y == 10:
                 parts = option_10.split()[1:]
             if cursor_y != 11:
-                url = "https://www.biblegateway.com/passage/?search="
-                for part in parts:
-                    url = url + part + "+"
-                url = url[:-1] #takes out extra +
-                #url = url + "&version=" + var.bible_version I'd rather just use the default the user has set on biblegateway
-                webbrowser.open(url)
+                if var.preferred_bible == "bible_gateway":
+                    sh.openBibleGateway(parts)
+                elif var.preferred_bible == "logos":
+                    sh.openLogos(parts)
         elif k == ord('1'):
             cursor_y = 1
             var.reading_position = cursor_y
