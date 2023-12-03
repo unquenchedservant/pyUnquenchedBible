@@ -114,31 +114,31 @@ def display(stdscr):
             mh.back()
         elif k == ord('1'):
             cursor_y = 1
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('2'):
             cursor_y = 2
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('3'):
             cursor_y = 3
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('4'):
             cursor_y = 4
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('5'):
             cursor_y = 5
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('6'):
             cursor_y = 6
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('7'):
             cursor_y = 7
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('8'):
             cursor_y = 8
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
         elif k == ord('9'):
             cursor_y = 9
-            var.pref_bible_position = cursor_y
+            var.bible_version_position = cursor_y
 def start():
     curses.wrapper(display)
     
