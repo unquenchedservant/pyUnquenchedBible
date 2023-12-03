@@ -1,5 +1,6 @@
 from utilities import variables as var
 from displays import main
+from displays.settings import home as main_settings
 """
 gets the title for the menu based on menu_type (authors, ) and sort_int(1-4 or 1 if not sortable)
 """
@@ -42,7 +43,8 @@ def get_title(sort_int):
 def back():
     if var.menu_type == "readings" or var.menu_type == "settings":
         main.start()
-
+    if var.menu_type == "pref_bible":
+        main_settings.start()
 '''
 def get_status_bar(current_page, num_pages, sort_int):
     menuStr1 = "'m' : Main Menu"
