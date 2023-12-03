@@ -8,6 +8,8 @@ def init():
     settings_position = 1
     global pref_bible_position
     pref_bible_position = 1
+    global bible_version_position
+    bible_version_position = 1
 
     # Menu Variables
     global menu_type # this holds what menu you are on

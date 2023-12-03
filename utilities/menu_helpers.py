@@ -43,7 +43,7 @@ def get_title(sort_int):
 def back():
     if var.menu_type == "readings" or var.menu_type == "settings":
         main.start()
-    if var.menu_type == "pref_bible":
+    if var.menu_type == "pref_bible" or var.menu_type == "bible_version":
         main_settings.start()
 '''
 def get_status_bar(current_page, num_pages, sort_int):
