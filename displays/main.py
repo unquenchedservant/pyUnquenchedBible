@@ -3,7 +3,8 @@ import sys
 from utilities import variables as var
 from utilities import menu as m
 from displays import readings
-from displays import settings
+
+from displays.settings import home as main_settings
 def main_menu(stdscr):
     var.menu_type = "main"
     cursor_y = var.main_position
@@ -57,7 +58,7 @@ def main_menu(stdscr):
             if char == ord('1'):
                 readings.start()
             if char == ord('2'):
-                settings.start()
+                main_settings.start()
             if char == ord('3'):
                 sys.exit()
         elif k == ord('1'):
