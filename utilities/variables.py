@@ -1,5 +1,19 @@
+import os
+import json
+from utilities import file_helpers as fh
+def checkFiles():
+    if not os.path.exists(fh.getRootPath()):
+        os.mkdir(fh.getRootPath())
+        preferences = {
+            "reading_plan": "pgh",
+            "bible_version": "NIV",
+            "preferred_bible": "bible_gateway"
+        }
+        preferences_json = json.dumps(preferences)
+        with open(fh.getPreferencesPath(), "w") as outfile:
+            outfile.write(preferences_json)
 def init():
-    # Position variabls
+    # Position variables (These aren't saved)
     global main_position # this holds where on the main menu you are 
     main_position = 1
     global reading_position
@@ -10,8 +24,6 @@ def init():
     pref_bible_position = 1
     global bible_version_position
     bible_version_position = 1
-
-    # Menu Variables
     global menu_type # this holds what menu you are on
     menu_type = "main"
 
