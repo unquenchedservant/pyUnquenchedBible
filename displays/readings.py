@@ -3,6 +3,7 @@ import sys
 import webbrowser
 from utilities import variables as var, menu as m, menu_helpers as mh
 from utilities import scripture_helpers as sh
+from utilities import list_helpers as lh   
 def display(stdscr):
     var.menu_type="readings"
     cursor_y = var.reading_position
@@ -25,16 +26,16 @@ def display(stdscr):
     title_str = "Unquenched Bible"
     status_msg = "Press 'r' to Read | Press 'd' to Mark Done |  Press 'esc' to go back"
     if var.reading_plan == "pgh":
-        option_1 = "1. Matthew 1"
-        option_2 = "2. Genesis 1"
-        option_3 = "3. Romans 1"
-        option_4 = "4. 1 Thessalonians 1"
-        option_5 = "5. Job 1"
-        option_6 = "6. Psalm 1"
-        option_7 = "7. Proverbs 1"
-        option_8 = "8. Joshua 1"
-        option_9 = "9. Isaiah 1"
-        option_10 = "10. Acts 1"
+        option_1 = "1. {}".format(lh.getPGHReading(listNum=1))
+        option_2 = "2. {}".format(lh.getPGHReading(listNum=2))
+        option_3 = "3. {}".format(lh.getPGHReading(listNum=3))
+        option_4 = "4. {}".format(lh.getPGHReading(listNum=4))
+        option_5 = "5. {}".format(lh.getPGHReading(listNum=5))
+        option_6 = "6. {}".format(lh.getPGHReading(listNum=6))
+        option_7 = "7. {}".format(lh.getPGHReading(listNum=7))
+        option_8 = "8. {}".format(lh.getPGHReading(listNum=8))
+        option_9 = "9. {}".format(lh.getPGHReading(listNum=9))
+        option_10 = "10. {}".format(lh.getPGHReading(listNum=10))
         option_11 = "11. Main Menu"
     while(True):
         stdscr.clear()
