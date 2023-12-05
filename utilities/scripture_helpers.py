@@ -5,7 +5,7 @@ def openBibleGateway(parts):
     for part in parts:
         url = url + part + "+"
         url = url[:-1] #takes out extra +
-        webbrowser.open(url)
+    webbrowser.open(url)
 
 def openLogos(parts):
     chapter = parts[-1]
