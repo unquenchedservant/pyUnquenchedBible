@@ -4,7 +4,7 @@ def openBibleGateway(parts):
     url = "https://www.biblegateway.com/passage/?search="
     for part in parts:
         url = url + part + "+"
-        url = url[:-1] #takes out extra +
+    url = url[:-1] #takes out extra +
     webbrowser.open(url)
 
 def openLogos(parts):
