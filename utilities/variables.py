@@ -4,14 +4,10 @@ from utilities import file_helpers as fh
 def checkFiles():
     if not os.path.exists(fh.getRootPath()):
         os.mkdir(fh.getRootPath())
-        preferences = {
-            "reading_plan": "pgh",
-            "bible_version": "NIV",
-            "preferred_bible": "bible_gateway"
-        }
-        preferences_json = json.dumps(preferences)
-        with open(fh.getPreferencesPath(), "w") as outfile:
-            outfile.write(preferences_json)
+        fh.savePreferences()
+        #There will be three here, one more for each reading plan
+    else:
+        fh.loadPreferences()
 def init():
     # Position variables (These aren't saved)
     global main_position # this holds where on the main menu you are 
@@ -34,3 +30,4 @@ def init():
     bible_version="NIV" 
     global preferred_bible
     preferred_bible = "bible_gateway" # two options: "BibleGateway" or "Logos"
+    checkFiles()
