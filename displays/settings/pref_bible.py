@@ -8,8 +8,15 @@ def getSettingChecked(version):
         return "X"
     else:
         return " "
+def getIndex(preferred_bible):
+    returnValues = {
+        "bible_gateway": 1,
+        "logos": 2
+    }
+    return returnValues[preferred_bible]
 def display(stdscr):
     var.menu_type="pref_bible"
+    var.pref_bible_position = getIndex(var.preferred_bible)
     cursor_y = var.pref_bible_position
     cursor_x = 1
     last_pressed = "None"

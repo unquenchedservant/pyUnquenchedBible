@@ -8,8 +8,29 @@ def getSettingChecked(version):
         return "X"
     else:
         return " "
+def getIndex(version):
+    returnValues = {
+        "ESV": 1,
+        "NIV": 2,
+        "KJV": 3,
+        "CSB": 4,
+        "NASB": 5,
+        "NASB2020": 6,
+        "NKJV": 7,
+        "NLT": 8,
+        "NET": 9,
+        "MSG": 10,
+        "LEB": 11,
+        "NRSV": 12,
+        "RSV": 13,
+        "PASSION": 14,
+        "ASV": 15
+    }
+    return returnValues[version]
+    
 def display(stdscr):
     var.menu_type="bible_version"
+    var.bible_version_position = getIndex(var.bible_version)
     cursor_y = var.bible_version_position
     cursor_x = 1
     last_pressed = "None"
