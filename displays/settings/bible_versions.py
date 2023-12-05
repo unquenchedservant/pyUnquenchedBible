@@ -2,6 +2,7 @@ import curses
 import sys
 import webbrowser
 from utilities import variables as var, menu as m, menu_helpers as mh
+from utilities import file_helpers as fh
 def getSettingChecked(version):
     if var.bible_version == version:
         return "X"
@@ -88,34 +89,49 @@ def display(stdscr):
         elif k == 9:
             if cursor_y == 1:
                 var.bible_version = "ESV"
+                fh.savePreferences()    
             elif cursor_y == 2:
                 var.bible_version = "NIV"
+                fh.savePreferences()
             elif cursor_y == 3:
                 var.bible_version = "KJV"
+                fh.savePreferences()
             elif cursor_y == 4:
                 var.bible_version = "CSB"
+                fh.savePreferences()
             elif cursor_y == 5:
                 var.bible_version = "NASB"
+                fh.savePreferences()
             elif cursor_y == 6:
                 var.bible_version = "NASB2020"
+                fh.savePreferences()
             elif cursor_y == 7:
                 var.bible_version = "NKJV"
+                fh.savePreferences()
             elif cursor_y == 8:
                 var.bible_version = "NLT"
+                fh.savePreferences()
             elif cursor_y == 9:
                 var.bible_version = "NET"
+                fh.savePreferences()
             elif cursor_y == 10:
                 var.bible_version = "MSG"
+                fh.savePreferences()
             elif cursor_y == 11:
                 var.bible_version = "LEB"
+                fh.savePreferences()
             elif cursor_y == 12:
                 var.bible_version = "NRSV"
+                fh.savePreferences()
             elif cursor_y == 13:
                 var.bible_version = "RSV"
+                fh.savePreferences()
             elif cursor_y == 14:
                 var.bible_version = "PASSION"
+                fh.savePreferences()
             elif cursor_y == 15:
                 var.bible_version = "ASV"
+                fh.savePreferences()
         elif k == 10:
             #TODO: Add saving here
             mh.back()
