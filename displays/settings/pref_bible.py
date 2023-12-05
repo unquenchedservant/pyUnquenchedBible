@@ -2,6 +2,7 @@ import curses
 import sys
 import webbrowser
 from utilities import variables as var, menu as m, menu_helpers as mh
+from utilities import file_helpers as fh
 def getSettingChecked(version):
     if var.preferred_bible == version:
         return "X"
@@ -28,7 +29,7 @@ def display(stdscr):
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
     title_str = "Unquenched Bible"
-    status_msg = "Press Tab to Select |  Press 'esc' to go back (Without Saving) | Press Enter to Save"
+    status_msg = "Press Tab to Select |  Press 'esc' to go back  | Autosaves"
     
     option_3 = "Save and Go back"
     while(True):
@@ -59,8 +60,10 @@ def display(stdscr):
         elif k == 9:
             if cursor_y == 1:
                 var.preferred_bible = "bible_gateway"
+                fh.savePreferences()
             elif cursor_y == 2:
                 var.preferred_bible = "logos"
+                fh.savePreferences()
         elif k == 10:
             #TODO: Add saving here
             mh.back()
