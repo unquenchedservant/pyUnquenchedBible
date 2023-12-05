@@ -28,7 +28,7 @@ def display(stdscr):
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
     title_str = "Unquenched Bible"
-    status_msg = "Press Tab to Select |  Press 'esc' to go back (Without Saving) | Press Enter to Save"
+    status_msg = "Press Tab to Select |  Press 'esc' to go back  | Autosaves"
     
     option_15 = "Save and Go back"
     while(True):
