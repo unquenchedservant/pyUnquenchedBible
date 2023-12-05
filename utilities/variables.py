@@ -35,6 +35,8 @@ def init():
     #Reading Plan Settings (Needs a file)
     global pgh_day
     pgh_day = 0 # 0 is disabled
+    global pgh_lists_done
+    pgh_lists_done = 0 # max is 10
     global pgh_list_1
     pgh_list_1 = 1
     global pgh_list_1_done
