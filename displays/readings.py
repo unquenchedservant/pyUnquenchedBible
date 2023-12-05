@@ -56,6 +56,7 @@ def display(stdscr):
         stdscr.refresh()
         k = stdscr.getch()
         if k == 27 or k == ord('q'):
+            var.reading_position = 1
             mh.back()
         elif k == curses.KEY_UP:
             cursor_y -= 1
@@ -68,6 +69,7 @@ def display(stdscr):
                 cursor_y = 1
             var.reading_position = cursor_y
         elif k == 10 and cursor_y == 11:
+            var.reading_position = 1
             mh.back()
         elif k == ord('d'):
             if cursor_y == 1:

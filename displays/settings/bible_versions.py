@@ -75,6 +75,7 @@ def display(stdscr):
         k = stdscr.getch()
         last_pressed = k
         if k == 27 or k == ord('q'):
+            var.bible_version_position = 1
             mh.back()
         elif k == curses.KEY_UP:
             cursor_y -= 1
@@ -133,7 +134,7 @@ def display(stdscr):
                 var.bible_version = "ASV"
                 fh.savePreferences()
         elif k == 10:
-            #TODO: Add saving here
+            var.bible_version_position = 1
             mh.back()
         elif k == ord('1'):
             cursor_y = 1

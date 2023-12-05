@@ -46,6 +46,7 @@ def display(stdscr):
         stdscr.refresh()
         k = stdscr.getch()
         if k == 27 or k == ord('q'):
+            var.settings_position = 1
             mh.back()
         elif k == curses.KEY_UP:
             cursor_y -= 1
@@ -63,6 +64,7 @@ def display(stdscr):
             elif cursor_y == 2:
                 bible_versions.start()
             elif cursor_y == 3:
+                var.settings_position = 1
                 mh.back()
         elif k == ord('d'):
             if cursor_y == 1:
