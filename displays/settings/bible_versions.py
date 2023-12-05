@@ -69,7 +69,7 @@ def display(stdscr):
         m.menu_option(stdscr, option_13, 13, 1, cursor_y)
         m.menu_option(stdscr, option_14, 14, 1, cursor_y)
         m.menu_option(stdscr, option_15, 15, 1, cursor_y)
-        m.menu_option(stdscr, "Save and Go back", 16, 1, cursor_y)
+        m.menu_option(stdscr, "Go Back", 16, 1, cursor_y)
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
         k = stdscr.getch()

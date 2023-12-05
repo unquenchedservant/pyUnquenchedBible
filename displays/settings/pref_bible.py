@@ -31,7 +31,6 @@ def display(stdscr):
     title_str = "Unquenched Bible"
     status_msg = "Press Tab to Select |  Press 'esc' to go back  | Autosaves"
     
-    option_3 = "Save and Go back"
     while(True):
         option_1 = "[{}] Bible Gateway".format(getSettingChecked("bible_gateway"))
         option_2 = "[{}] Logos".format(getSettingChecked("logos"))
@@ -40,7 +39,7 @@ def display(stdscr):
         m.status_bar(stdscr, status_msg)
         m.menu_option(stdscr, option_1, 1, 1, cursor_y)
         m.menu_option(stdscr, option_2, 2, 1, cursor_y)
-        m.menu_option(stdscr, option_3, 3, 1, cursor_y)
+        m.menu_option(stdscr, "Go Back", 3, 1, cursor_y)
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
         k = stdscr.getch()
