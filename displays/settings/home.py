@@ -57,13 +57,13 @@ def display(stdscr):
             if cursor_y == 4:
                 cursor_y = 1
             var.settings_position = cursor_y
-        elif k == 10 and cursor_y == 3:
-            mh.back()
         elif k == 10:
             if cursor_y == 1:
                 pref_bible.start()
             elif cursor_y == 2:
                 bible_versions.start()
+            elif cursor_y == 3:
+                mh.back()
         elif k == ord('d'):
             if cursor_y == 1:
                 print("Cursor position 1")
