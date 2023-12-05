@@ -50,11 +50,11 @@ def display(stdscr):
         elif k == curses.KEY_UP:
             cursor_y -= 1
             if cursor_y == 0:
-                cursor_y = 2
+                cursor_y = 3
             var.settings_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
-            if cursor_y == 3:
+            if cursor_y == 4:
                 cursor_y = 1
             var.settings_position = cursor_y
         elif k == 10 and cursor_y == 3:
