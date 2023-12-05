@@ -30,7 +30,7 @@ def init():
     bible_version="NIV" 
     global preferred_bible
     preferred_bible = "bible_gateway" # two options: "BibleGateway" or "Logos"
-    checkFiles()
+    
 
     #Reading Plan Settings (Needs a file)
     global pgh_day
@@ -77,3 +77,7 @@ def init():
     pgh_list_10 = 1
     global pgh_list_10_done
     pgh_list_10_done = False
+
+    #TODO: Add mcheyne variables
+
+    checkFiles()
