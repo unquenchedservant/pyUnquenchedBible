@@ -4,6 +4,7 @@ import webbrowser
 from utilities import variables as var, menu as m, menu_helpers as mh
 from displays.settings import pref_bible
 from displays.settings import bible_versions
+from displays.settings import psalms
     
 def getPreferredBible(version):
     if version == "bible_gateway":
@@ -35,13 +36,16 @@ def display(stdscr):
     status_msg = "Enter to change settings |  Press 'esc' to go back"
     option_1 = "Preferred Bible (Current: {})".format(getPreferredBible(var.preferred_bible))
     option_2 = "Bible Version (Logos Only) (Current: {})".format(var.bible_version)
+    option_3 = "Read 5 Psalms a Day (Current: {})".format(var.psalms)
+
     while(True):
         stdscr.clear()
         m.title(stdscr, title_str)
         m.status_bar(stdscr, status_msg)
         m.menu_option(stdscr, option_1, 1, 1, cursor_y)
         m.menu_option(stdscr, option_2, 2, 1, cursor_y)
-        m.menu_option(stdscr, "Go back", 3, 1, cursor_y)
+        m.menu_option(stdscr, option_3, 3, 1, cursor_y)
+        m.menu_option(stdscr, "Go back", 4, 1, cursor_y)
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
         k = stdscr.getch()
@@ -51,11 +55,11 @@ def display(stdscr):
         elif k == curses.KEY_UP:
             cursor_y -= 1
             if cursor_y == 0:
-                cursor_y = 3
+                cursor_y = 4
             var.settings_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
-            if cursor_y == 4:
+            if cursor_y == 5:
                 cursor_y = 1
             var.settings_position = cursor_y
         elif k == 10:
@@ -64,6 +68,8 @@ def display(stdscr):
             elif cursor_y == 2:
                 bible_versions.start()
             elif cursor_y == 3:
+                psalms.start()
+            elif cursor_y == 4:
                 var.settings_position = 1
                 mh.back()
         elif k == ord('d'):

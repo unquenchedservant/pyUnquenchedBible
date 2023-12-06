@@ -15,9 +15,22 @@ def getPreferencesPath():
 def loadPreferences():
     with open(getPreferencesPath()) as json_file:
         preferences = json.load(json_file)
-        var.reading_plan = preferences["reading_plan"]
-        var.bible_version = preferences["bible_version"]
-        var.preferred_bible = preferences["preferred_bible"]
+        try:
+            var.reading_plan = preferences["reading_plan"]
+        except:
+            pass
+        try:
+            var.bible_version = preferences["bible_version"]
+        except:
+            pass
+        try:
+            var.preferred_bible = preferences["preferred_bible"]
+        except:
+            pass
+        try:
+            var.psalms = preferences["psalms"]
+        except:
+            pass
 
 def getPGHPath():
     return getRootPath() + "/pgh.json"
@@ -29,7 +42,8 @@ def savePreferences():
     preferences = {
         "reading_plan": var.reading_plan,
         "bible_version": var.bible_version,
-        "preferred_bible": var.preferred_bible
+        "preferred_bible": var.preferred_bible,
+        "psalms": var.psalms
     }
     preferences_json = json.dumps(preferences)
     with open(getPreferencesPath(), "w") as outfile:

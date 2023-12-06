@@ -22,6 +22,8 @@ def init():
     bible_version_position = 1
     global menu_type # this holds what menu you are on
     menu_type = "main"
+    global psalms_position #this one needs to be one off, to account for the top line being a title
+    psalms_position = 2
 
     #General Settings (Needs a file)
     global reading_plan # will hold professor grant horner or mcheyne at some point
@@ -30,7 +32,8 @@ def init():
     bible_version="NIV" 
     global preferred_bible
     preferred_bible = "bible_gateway" # two options: "BibleGateway" or "Logos"
-    
+    global psalms # this will be a boolean, true if you want to read 5 psalms a day, false if you don't
+    psalms = False  
 
     #Reading Plan Settings (Needs a file)
     global pgh_day
