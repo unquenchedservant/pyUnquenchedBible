@@ -58,12 +58,12 @@ def display(stdscr):
             cursor_y -= 1
             if cursor_y == 0:
                 cursor_y = 3
-            var.reading_position = cursor_y
+            var.pref_bible_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
             if cursor_y == 4:
                 cursor_y = 1
-            var.reading_position = cursor_y
+            var.pref_bible_position = cursor_y
         elif k == 9:
             if cursor_y == 1:
                 var.preferred_bible = "bible_gateway"
