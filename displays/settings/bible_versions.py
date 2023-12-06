@@ -49,7 +49,7 @@ def display(stdscr):
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
-    title_str = "Unquenched Bible"
+    title_str = "Settings - Bible Version"
     status_msg = "Press Tab to Select |  Press 'esc' to go back  | Autosaves"
     
     option_15 = "Save and Go back"

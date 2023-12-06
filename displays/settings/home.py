@@ -32,7 +32,7 @@ def display(stdscr):
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
-    title_str = "Unquenched Bible"
+    title_str = "Settings"
     status_msg = "Enter to change settings |  Press 'esc' to go back"
     option_1 = "Preferred Bible (Current: {})".format(getPreferredBible(var.preferred_bible))
     option_2 = "Bible Version (Logos Only) (Current: {})".format(var.bible_version)

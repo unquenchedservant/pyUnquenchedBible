@@ -34,7 +34,7 @@ def display(stdscr):
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
-    title_str = "Unquenched Bible"
+    title_str = "Settings - Read 5 Psalms a Day"
     status_msg = "Press Tab to Select |  Press 'esc' to go back  | Autosaves"
     
     while(True):
@@ -44,10 +44,9 @@ def display(stdscr):
         stdscr.clear()
         m.title(stdscr, title_str)
         m.status_bar(stdscr, status_msg)
-        m.menu_option(stdscr, "Read 5 Psalms a Day:", 1, 1, cursor_y)
-        m.menu_option(stdscr, option_1, 2, 1, cursor_y)
-        m.menu_option(stdscr, option_2, 3, 1, cursor_y)
-        m.menu_option(stdscr, "Go Back", 4, 1, cursor_y)
+        m.menu_option(stdscr, option_1, 1, 1, cursor_y)
+        m.menu_option(stdscr, option_2, 2, 1, cursor_y)
+        m.menu_option(stdscr, "Go Back", 3, 1, cursor_y)
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
         k = stdscr.getch()
@@ -56,19 +55,19 @@ def display(stdscr):
             mh.back()
         elif k == curses.KEY_UP:
             cursor_y -= 1
-            if cursor_y == 1:
-                cursor_y = 4
+            if cursor_y == 0:
+                cursor_y = 3
             var.psalms_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
-            if cursor_y == 5:
-                cursor_y = 2
+            if cursor_y == 4:
+                cursor_y = 1
             var.psalms_position = cursor_y
         elif k == 9:
-            if cursor_y == 2:
+            if cursor_y == 1:
                 var.psalms = True
                 fh.savePreferences()
-            elif cursor_y == 3:
+            elif cursor_y == 2:
                 var.psalms = False
                 fh.savePreferences()
         elif k == 10:

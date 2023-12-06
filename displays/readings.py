@@ -23,7 +23,7 @@ def display(stdscr):
     curses.init_pair(3, curses.COLOR_BLACK, curses.COLOR_WHITE)
     curses.init_pair(4, curses.COLOR_GREEN, curses.COLOR_BLACK)
 
-    title_str = "Unquenched Bible"
+    title_str = "Today's Reading"
     
     if var.reading_plan == "pgh":
         option_1 = "1. {}".format(lh.getPGHReading(listNum=1))
