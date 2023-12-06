@@ -10,8 +10,8 @@ def getSettingChecked(psalms):
         return " "
 def getIndex(psalms):
     returnValues = {
-        True: 1,
-        False: 2
+        True: 2,
+        False: 3
     }
     return returnValues[psalms]
 def display(stdscr):
@@ -19,7 +19,6 @@ def display(stdscr):
     var.psalms_position = getIndex(var.psalms)
     cursor_y = var.psalms_position
     cursor_x = 1
-    last_pressed = "None"
     k = 0
 
     curses.curs_set(0)
@@ -52,18 +51,17 @@ def display(stdscr):
         stdscr.move(cursor_y, cursor_x)
         stdscr.refresh()
         k = stdscr.getch()
-        last_pressed = k
         if k == 27 or k == ord('q'):
             var.psalms_position = 1
             mh.back()
         elif k == curses.KEY_UP:
             cursor_y -= 1
             if cursor_y == 1:
-                cursor_y = 3
+                cursor_y = 4
             var.psalms_position = cursor_y
         elif k == curses.KEY_DOWN:
             cursor_y += 1
-            if cursor_y == 4:
+            if cursor_y == 5:
                 cursor_y = 2
             var.psalms_position = cursor_y
         elif k == 9:
