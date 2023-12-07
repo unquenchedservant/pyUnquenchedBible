@@ -184,6 +184,15 @@ def display(stdscr):
         elif k == ord('9'):
             cursor_y = 9
             var.bible_version_position = cursor_y
+        elif k == ord('0'):
+            cursor_y = 10
+            var.bible_version_position = cursor_y
+        elif k == ord('-'):
+            cursor_y = 11
+            var.bible_version_position = cursor_y
+        elif k == ord('='):
+            cursor_y = 12
+            var.bible_version_position = cursor_y
 def start():
     curses.wrapper(display)
     
