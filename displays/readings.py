@@ -3,7 +3,33 @@ import sys
 import webbrowser
 from utilities import variables as var, menu as m, menu_helpers as mh
 from utilities import scripture_helpers as sh
-from utilities import list_helpers as lh   
+from utilities import list_helpers as lh
+def getReadingDone(list):
+    listDone = False
+    if list == 1:
+        listDone = var.pgh_list_1_done
+    elif list == 2:
+        listDone = var.pgh_list_2_done
+    elif list == 3:
+        listDone = var.pgh_list_3_done
+    elif list == 4:
+        listDone = var.pgh_list_4_done
+    elif list == 5:
+        listDone = var.pgh_list_5_done
+    elif list == 6:
+        listDone = var.pgh_list_6_done
+    elif list == 7:
+        listDone = var.pgh_list_7_done
+    elif list == 8:
+        listDone = var.pgh_list_8_done
+    elif list == 9:
+        listDone = var.pgh_list_9_done
+    elif list == 10:
+        listDone = var.pgh_list_10_done
+    if listDone:
+        return "X"
+    else:
+        return " "
 def display(stdscr):
     var.menu_type="readings"
     cursor_y = var.reading_position
@@ -26,29 +52,31 @@ def display(stdscr):
     title_str = "Today's Reading"
     
     if var.reading_plan == "pgh":
-        option_1 = "1. {}".format(lh.getPGHReading(listNum=1))
-        option_2 = "2. {}".format(lh.getPGHReading(listNum=2))
-        option_3 = "3. {}".format(lh.getPGHReading(listNum=3))
-        option_4 = "4. {}".format(lh.getPGHReading(listNum=4))
-        option_5 = "5. {}".format(lh.getPGHReading(listNum=5))
+        option_1 = "1.  [{}] {}".format(getReadingDone(1), lh.getPGHReading(listNum=1))
+        option_2 = "2.  [{}] {}".format(getReadingDone(2), lh.getPGHReading(listNum=2))
+        option_3 = "3.  [{}] {}".format(getReadingDone(3), lh.getPGHReading(listNum=3))
+        option_4 = "4.  [{}] {}".format(getReadingDone(4), lh.getPGHReading(listNum=4))
+        option_5 = "5.  [{}] {}".format(getReadingDone(5), lh.getPGHReading(listNum=5))
         if var.psalms:
-            option_6a = "6. Psalms"
-            option_6b = " - {}".format(lh.getPsalms(1))
-            option_6c = " - {}".format(lh.getPsalms(2))
-            option_6d = " - {}".format(lh.getPsalms(3))
-            option_6e = " - {}".format(lh.getPsalms(4))
-            option_6f = " - {}".format(lh.getPsalms(5))
-        option_6 = "6. {}".format(lh.getPGHReading(listNum=6))
-        option_7 = "7. {}".format(lh.getPGHReading(listNum=7))
-        option_8 = "8. {}".format(lh.getPGHReading(listNum=8))
-        option_9 = "9. {}".format(lh.getPGHReading(listNum=9))
-        option_10 = "10. {}".format(lh.getPGHReading(listNum=10))
+            option_6a = "6.  [{}] Psalms".format(getReadingDone(6))
+            option_6b = "        - {}".format(lh.getPsalms(1))
+            option_6c = "        - {}".format(lh.getPsalms(2))
+            option_6d = "        - {}".format(lh.getPsalms(3))
+            option_6e = "        - {}".format(lh.getPsalms(4))
+            option_6f = "        - {}".format(lh.getPsalms(5))
+        option_6 = "6.  [{}] {}".format(getReadingDone(6), lh.getPGHReading(listNum=6))
+        option_7 = "7.  [{}] {}".format(getReadingDone(7), lh.getPGHReading(listNum=7))
+        option_8 = "8.  [{}] {}".format(getReadingDone(8), lh.getPGHReading(listNum=8))
+        option_9 = "9.  [{}] {}".format(getReadingDone(9), lh.getPGHReading(listNum=9))
+        option_10 = "10. [{}] {}".format(getReadingDone(10), lh.getPGHReading(listNum=10))
     while(True):
         stdscr.clear()
         if (cursor_y == 11 and not var.psalms) or (cursor_y == 16 and var.psalms):
             status_msg = "Press Enter to go Back"
         elif cursor_y == 6 and var.psalms:
             status_msg = "'tab to mark all 5 psalms done"
+        elif var.psalms and cursor_y >=7 and cursor_y <= 11:
+            status_msg = "'r' to Read | 'esc' to go back"
         else:
             status_msg = "'r' to Read | Tab to mark done | 'esc' to go back"
         m.title(stdscr, title_str)
@@ -115,7 +143,7 @@ def display(stdscr):
                 print("Cursor position 4")
             elif cursor_y == 5:
                 print("cursor position 5")
-            #TODO: add logic for psalms
+            #TODO: add logic for psalms #jk this should be easy now
             elif cursor_y == 6:
                 print("Cursor position 6")
             elif cursor_y == 7:
