@@ -207,13 +207,34 @@ def display(stdscr):
             cursor_y = 6
             var.reading_position = cursor_y
         elif k == ord('7'):
-            cursor_y = 7
+            if var.psalms:
+                cursor_y = 12
+            else:
+                cursor_y = 7
             var.reading_position = cursor_y
         elif k == ord('8'):
-            cursor_y = 8
+            if var.psalms:
+                cursor_y = 13
+            else:
+                cursor_y = 8
             var.reading_position = cursor_y
         elif k == ord('9'):
-            cursor_y == 9
+            if var.psalms:
+                cursor_y = 14
+            else:
+                cursor_y = 9
+            var.reading_position = cursor_y
+        elif k == ord('0'):
+            if var.psalms:
+                cursor_y = 15
+            else:
+                cursor_y = 10
+            var.reading_position = cursor_y
+        elif k == ord('-'):
+            if var.psalms:
+                cursor_y = 16
+            else:
+                cursor_y = 11
             var.reading_position = cursor_y
 def start():
     curses.wrapper(display)
