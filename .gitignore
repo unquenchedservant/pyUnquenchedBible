@@ -1,3 +1,7 @@
 *.pyc
 test.py
 venv/*
+app.spec
+.DS_Store
+build/app/*
+dist/*

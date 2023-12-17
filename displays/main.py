@@ -3,7 +3,7 @@ import sys
 from utilities import variables as var
 from utilities import menu as m
 from displays import readings
-
+import blessed
 from displays.settings import home as main_settings
 def main_menu(stdscr):
     var.menu_type = "main"
@@ -71,5 +71,7 @@ def main_menu(stdscr):
             cursor_y = 3
             var.main_position = cursor_y
         
-def start():
-    curses.wrapper(main_menu)
+def start(term):
+    m.title_2(term, "Unquenched Bible")
+    print(term.home + term.clear)
+    #curses.wrapper(main_menu)
