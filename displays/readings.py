@@ -2,6 +2,7 @@ import sys
 from utilities import variables as var, menu as m, menu_helpers as mh
 from utilities import scripture_helpers as sh
 from utilities import list_helpers as lh
+
 def getReadingDone(list):
     listDone = False
     if list == 1:
@@ -137,25 +138,25 @@ def start(term):
             parts = []
             if not var.psalms:
                 if cursor_y == 1:
-                    parts = option_1.split()[1:]
+                    parts = option_1.split()[3:]
                 elif cursor_y == 2:
-                    parts = option_2.split()[1:]
+                    parts = option_2.split()[3:]
                 elif cursor_y == 3:
-                    parts = option_3.split()[1:]
+                    parts = option_3.split()[3:]
                 elif cursor_y == 4:
-                    parts = option_4.split()[1:]
+                    parts = option_4.split()[3:]
                 elif cursor_y == 5:
-                    parts = option_5.split()[1:]
+                    parts = option_5.split()[3:]
                 elif cursor_y == 6:
-                    parts = option_6.split()[1:]
+                    parts = option_6.split()[3:]
                 elif cursor_y == 7:
-                    parts = option_7.split()[1:]
+                    parts = option_7.split()[3:]
                 elif cursor_y == 8:
-                    parts = option_8.split()[1:]
+                    parts = option_8.split()[3:]
                 elif cursor_y == 9:
-                    parts = option_9.split()[1:]
+                    parts = option_9.split()[3:]
                 elif cursor_y == 10:
-                    parts = option_10.split()[1:]
+                    parts = option_10.split()[3:]
                 if cursor_y != 11:
                     if var.preferred_bible == "bible_gateway":
                         sh.openBibleGateway(parts)
@@ -163,33 +164,33 @@ def start(term):
                         sh.openLogos(parts)
             else:
                 if cursor_y == 1:
-                    parts = option_1.split()[1:]
+                    parts = option_1.split()[3:]
                 elif cursor_y == 2:
-                    parts = option_2.split()[1:]
+                    parts = option_2.split()[3:]
                 elif cursor_y == 3:
-                    parts = option_3.split()[1:]
+                    parts = option_3.split()[3:]
                 elif cursor_y == 4:
-                    parts = option_4.split()[1:]
+                    parts = option_4.split()[3:]
                 elif cursor_y == 5:
-                    parts = option_5.split()[1:]
+                    parts = option_5.split()[3:]
                 elif cursor_y == 7:
-                    parts = option_6b.split()[1:]
+                    parts = option_6b.split()[3:]
                 elif cursor_y == 8:
-                    parts = option_6c.split()[1:]
+                    parts = option_6c.split()[3:]
                 elif cursor_y == 9:
-                    parts = option_6d.split()[1:]
+                    parts = option_6d.split()[3:]
                 elif cursor_y == 10:
-                    parts = option_6e.split()[1:]
+                    parts = option_6e.split()[3:]
                 elif cursor_y == 11:
-                    parts = option_6f.split()[1:]
+                    parts = option_6f.split()[3:]
                 elif cursor_y == 12:
-                    parts = option_7.split()[1:]
+                    parts = option_7.split()[3:]
                 elif cursor_y == 13:
-                    parts = option_8.split()[1:]
+                    parts = option_8.split()[3:]
                 elif cursor_y == 14:
-                    parts = option_9.split()[1:]
+                    parts = option_9.split()[3:]
                 elif cursor_y == 15:
-                    parts = option_10.split()[1:]
+                    parts = option_10.split()[3:]
                 if cursor_y != 16 and cursor_y != 6:
                     if var.preferred_bible == "bible_gateway":
                         sh.openBibleGateway(parts)
