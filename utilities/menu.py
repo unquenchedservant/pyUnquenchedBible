@@ -44,9 +44,8 @@ def title(stdscr, title):
     stdscr.attroff(curses.color_pair(1))
 
 def title_2(term, title):
-    #display_x = arith.title_start(title, term.width)
-    print(term.width)
-    #print(term.move_xy(0, display_x) + term.cyan_on_black + term.bold(title))
+    display_x = arith.title_start(title, term.width)
+    print(term.move_xy(display_x, 0) + term.cyan_on_black + term.bold(title))
 def status_bar(stdscr, status_msg):
     height = get_height(stdscr)
     width = get_width(stdscr)
