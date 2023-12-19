@@ -40,11 +40,11 @@ def get_title(sort_int):
 #        return string_handler.display_string(display, width, var.menu_type)
 
 
-def back():
+def back(term):
     if var.menu_type == "readings" or var.menu_type == "settings":
-        main.start()
+        main.start(term)
     if var.menu_type == "pref_bible" or var.menu_type == "bible_version" or var.menu_type == "psalms":
-        main_settings.start()
+        main_settings.start(term)
 '''
 def get_status_bar(current_page, num_pages, sort_int):
     menuStr1 = "'m' : Main Menu"

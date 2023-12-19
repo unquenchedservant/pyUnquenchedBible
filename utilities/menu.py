@@ -35,27 +35,18 @@ stdscr  - curses screen
 title   - title of the current screen
 """
 # I want to convert this to use blessed instead of curses
-def title(stdscr, title):
-    display_x = arith.title_start(title, stdscr.getmaxyx()[1])
-    stdscr.attron(curses.color_pair(1))
-    stdscr.attron(curses.A_BOLD)
-    stdscr.addstr(0, display_x, title)
-    stdscr.attroff(curses.A_BOLD)
-    stdscr.attroff(curses.color_pair(1))
+def clear(term):
+    print(term.home + term.clear)
 
-def title_2(term, title):
+def title(term, title):
     display_x = arith.title_start(title, term.width)
-    print(term.move_xy(display_x, 0) + term.cyan_on_black + term.bold(title))
-def status_bar(stdscr, status_msg):
-    height = get_height(stdscr)
-    width = get_width(stdscr)
-    display_y = height - 1
-    magic_number = (width - len(status_msg) - 1)
+    print(term.move_xy(display_x, 1) + term.cyan + term.bold(title))
 
-    stdscr.attron(curses.color_pair(3))
-    stdscr.addstr(display_y, 0, status_msg)
-    stdscr.addstr(display_y, len(status_msg), " " * magic_number)
-    stdscr.attroff(curses.color_pair(3))
+def status_bar(term, status_msg):
+    magic_number = (term.width - len(status_msg))
+    status_msg = status_msg + " " * magic_number
+    print(term.move_xy(0, term.height - 0) + term.black_on_white + term.bold(status_msg))
+
 
 def last_row(stdscr, l_row):
     height = get_height(stdscr)
@@ -71,13 +62,15 @@ display_y - where to display the string on the screen (vertically)
 display_x - where to display the string on the screen (horizontally)
 cursor_y  - where is the cursor_y currently
 """
+def get_color(term, cursor_y, option):
+    if cursor_y == option:
+        return term.black_on_white
+    else:
+        return term.white
 
-def menu_option(stdscr, string, display_y, display_x, cursor_y):
-    if cursor_y == display_y:
-        stdscr.attron(curses.color_pair(3))
-    stdscr.addstr(display_y, display_x, string)
-    if cursor_y == display_y:
-        stdscr.attroff(curses.color_pair(3))
+def menu_option(term, string, display_y, cursor_y):
+    print(term.move_xy(1, display_y) + get_color(term, cursor_y, display_y) + term.bold(string))
+
 
 def display_option(stdscr, y_position, x_start_pos, cursor_y, max_rows, num_pages, current_page, last_page_row, display_list):
     width = get_width(stdscr)
