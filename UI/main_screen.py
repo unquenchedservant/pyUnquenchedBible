@@ -2,7 +2,7 @@ from utilities import variables as v
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget
 from PyQt6.QtCore import QSettings
 
-class TimerApp(QMainWindow):
+class UnquenchedBible(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(v.APP_NAME)

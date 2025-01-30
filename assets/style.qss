@@ -1,0 +1,41 @@
+QPushButton {
+    background-color: #383838;
+    color: #9cb9d3;
+}
+
+QMainWindow {
+    background-color: #121212;
+}
+
+
+QLabel {
+    color: #9cb9d3;
+}
+
+QDialog {
+    background-color: #121212;
+}
+
+QCheckBox {
+    color: #9cb9d3;
+}
+
+QCheckBox::indicator:unchecked {
+    background-color: #444444; /* Background color when unchecked */
+    border: 1px solid #9cb9d3; /* Border color */
+}
+
+QCheckBox::indicator:checked {
+    background-color: #66bb6a; /* Background color when checked */
+    border: 1px solid #9cb9d3; /* Border color */
+}
+
+QComboBox {
+    background-color: gray;
+    
+}
+
+QLineEdit {
+    background-color: gray;
+    
+}
