@@ -1,5 +1,5 @@
 import sys
-from PyQt6.QtWi
+from PyQt6.QtWidgets import QApplication
 from UI.main_screen import MainWindow
 from utilities import resource_path
 if __name__ == "__main__":
