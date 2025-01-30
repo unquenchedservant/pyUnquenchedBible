@@ -9,6 +9,8 @@ def checkFiles():
     else:
         fh.loadPreferences()
 def init():
+    global APP_NAME
+    APP_NAME = "Unquenched Bible"
     # Position variables (These aren't saved)
     global main_position # this holds where on the main menu you are 
     main_position = 1

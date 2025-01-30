@@ -1,9 +1,17 @@
-from displays import main as main_menu 
-from utilities import variables as var
-from utilities import menu as m
-import blessed
+import sys
+from PyQt6.QtWi
+from UI.main_screen import MainWindow
+from utilities import resource_path
 if __name__ == "__main__":
-    var.init()
-    term = blessed.Terminal()
-    main_menu.start(term)
-    #print("Curses error. Try increasing the size of your terminal window.")
+    app = QApplication(sys.argv)
+    if sys.platform == "linux" or sys.platform == "darwin":
+        resource = "asset/style.qss"
+        app.setStyle("Breeze")
+    else:
+        resource = "asset\\style.qss"
+        app.setStyle("Fusion")
+    with open(resource_path(resource), "r") as file:
+        app.setStyleSheet(file.read())
+    mainWin = MainWindow()
+    mainWin.show()
+    sys.exit(app.exec())
