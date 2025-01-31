@@ -1,5 +1,5 @@
 from utilities import variables as v
-from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout
 from PyQt6.QtCore import QSettings
 from datetime import datetime as dt
 from .modules import card
@@ -21,6 +21,7 @@ class UnquenchedBible(QMainWindow):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
         main_layout = QVBoxLayout()
         
+        reading_card_layout = QGridLayout()
         self.card1 = card.ReadingCard(self, 'Gospels', 'Matthew 1')
         self.card2 = card.ReadingCard(self, 'Pentateuch', 'Genesis 1')
         self.card3 = card.ReadingCard(self, 'Epistles I', 'Romans 1')
@@ -32,16 +33,18 @@ class UnquenchedBible(QMainWindow):
         self.card9 = card.ReadingCard(self, 'Prophets', 'Isaiah 1')
         self.card10 = card.ReadingCard(self, 'Acts', 'Acts 1')
         
-        main_layout.addWidget(self.card1)
-        main_layout.addWidget(self.card2)
-        main_layout.addWidget(self.card3)
-        main_layout.addWidget(self.card4)
-        main_layout.addWidget(self.card5)
-        main_layout.addWidget(self.card6)
-        main_layout.addWidget(self.card7)
-        main_layout.addWidget(self.card8)
-        main_layout.addWidget(self.card9)
-        main_layout.addWidget(self.card10)
+        reading_card_layout.addWidget(self.card1, 0, 0)
+        reading_card_layout.addWidget(self.card2, 0, 1)
+        reading_card_layout.addWidget(self.card3, 1, 0)
+        reading_card_layout.addWidget(self.card4, 1, 1)
+        reading_card_layout.addWidget(self.card5, 2, 0)
+        reading_card_layout.addWidget(self.card6, 2, 1)
+        reading_card_layout.addWidget(self.card7, 3, 0)
+        reading_card_layout.addWidget(self.card8, 3, 1)
+        reading_card_layout.addWidget(self.card9, 4, 0)
+        reading_card_layout.addWidget(self.card10, 4, 1)
+        
+        main_layout.addLayout(reading_card_layout)
 
         container = QWidget()
         container.setLayout(main_layout)
@@ -51,15 +54,19 @@ class UnquenchedBible(QMainWindow):
     def initMcheyne(self):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
         main_layout = QVBoxLayout()
+
+        reading_card_layout = QGridLayout()
         self.card1 = card.ReadingCard(self, 'List 1', 'Matthew 1') # These aren't accurate, but I don't have the plan in front of me at the moment
         self.card2 = card.ReadingCard(self, 'List 2', 'Genesis 1') 
         self.card3 = card.ReadingCard(self, 'List 3', 'Romans 1')
         self.card4 = card.ReadingCard(self, 'List 4', '1 Corinthians 1')
 
-        main_layout.addWidget(self.card1)
-        main_layout.addWidget(self.card2)
-        main_layout.addWidget(self.card3)
-        main_layout.addWidget(self.card4)
+        reading_card_layout.addWidget(self.card1, 0, 0)
+        reading_card_layout.addWidget(self.card2, 0, 1)
+        reading_card_layout.addWidget(self.card3, 1, 0)
+        reading_card_layout.addWidget(self.card4, 1, 1)
+
+        main_layout.addLayout(reading_card_layout)
 
         container = QWidget()
         container.setLayout(main_layout)
