@@ -16,7 +16,6 @@ class UnquenchedBible(QMainWindow):
             self.initPGH()
         else:
             self.initMcheyne()
-        #self.initUI()
     
     def initPGH(self):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
@@ -52,15 +51,15 @@ class UnquenchedBible(QMainWindow):
     def initMcheyne(self):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
         main_layout = QVBoxLayout()
-        self.title_label1 = QLabel('List 1', self)
-        self.title_label2 = QLabel('List 2', self)
-        self.title_label3 = QLabel('List 3', self)
-        self.title_label4 = QLabel('List 4', self)
+        self.card1 = card.ReadingCard(self, 'List 1', 'Matthew 1') # These aren't accurate, but I don't have the plan in front of me at the moment
+        self.card2 = card.ReadingCard(self, 'List 2', 'Genesis 1') 
+        self.card3 = card.ReadingCard(self, 'List 3', 'Romans 1')
+        self.card4 = card.ReadingCard(self, 'List 4', '1 Corinthians 1')
 
-        main_layout.addWidget(self.title_label1)
-        main_layout.addWidget(self.title_label2)
-        main_layout.addWidget(self.title_label3)
-        main_layout.addWidget(self.title_label4)
+        main_layout.addLayout(self.card1)
+        main_layout.addLayout(self.card2)
+        main_layout.addLayout(self.card3)
+        main_layout.addLayout(self.card4)
 
         container = QWidget()
         container.setLayout(main_layout)
