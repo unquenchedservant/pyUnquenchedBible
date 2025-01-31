@@ -1,7 +1,12 @@
+from utilities import variables as v
 from PyQt6.QtWidgets import QLabel, QWidget, QVBoxLayout
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QColor
 class ReadingCard(QWidget):
     def __init__(self, parent=None,title="",reading=""):
         super().__init__(parent)
+        self.setAutoFillBackground(True)
+        self.palette().setColor(self.backgroundRole(), v.COLOR_PRIMARY)
         layout = QVBoxLayout()
         self.title = QLabel(title)
         self.reading = QLabel(reading)

@@ -1,6 +1,8 @@
 import os
 import json
 from utilities import file_helpers as fh
+from PyQt6.QtGui import QColor
+
 def checkFiles():
     if not os.path.exists(fh.getRootPath()):
         os.mkdir(fh.getRootPath())
@@ -11,6 +13,12 @@ def checkFiles():
 def init():
     global APP_NAME
     APP_NAME = "Unquenched Bible"
+    
+    #Colors
+    global COLOR_PRIMARY
+    COLOR_PRIMARY = QColor("#383838")
+
+
     # Position variables (These aren't saved)
     global main_position # this holds where on the main menu you are 
     main_position = 1
@@ -26,7 +34,7 @@ def init():
     menu_type = "main"
     global psalms_position #this one needs to be one off, to account for the top line being a title
     psalms_position = 2
-
+    
     #General Settings (Needs a file)
     global reading_plan # will hold professor grant horner or mcheyne at some point
     reading_plan = "pgh"
