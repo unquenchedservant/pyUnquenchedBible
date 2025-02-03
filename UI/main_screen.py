@@ -7,7 +7,7 @@ class UnquenchedBible(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(v.APP_NAME)
-        self.setGeometry(100, 100, 800, 600)
+        self.setGeometry(100, 100, 800, 300)
 
         self.settings = QSettings('UnquenchedServant','Unquenched-Bible')
         #self.executor = concurrent.futures.ThreadPoolExecutor()
