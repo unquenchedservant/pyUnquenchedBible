@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QLabel, QWidget, QVBoxLayout, QHBoxLayout, QPushButt
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QColor
 from utilities import scripture_helpers as sh
-
+from utilities import list_helpers as lh
 
 ACTIVE_PALETTE = """
                            QWidget {
@@ -38,12 +38,13 @@ UNACTIVE_PALETTE = """
                            }
                            """
 class ReadingCard(QWidget):
-     def __init__(self, parent=None, title="", reading="", listNum=1, settings=None):
+     def __init__(self, parent=None, title="", reading="", listNum=1, settings=None, list=None):
           super().__init__(parent)
           self.setAutoFillBackground(True)
           self.title = title
           self.reading = reading
           self.listNum = listNum
+          self.list = list
           self.settings = settings
           self.palette().setColor(self.backgroundRole(), QColor("#383838"))
           self.setPalette(self.palette())
@@ -54,7 +55,7 @@ class ReadingCard(QWidget):
                plan = "mcheyne"
           
           layout = QVBoxLayout()
-          self.titleLabel = QLabel(title + " - " + reading, alignment=Qt.AlignmentFlag.AlignCenter)
+          self.titleLabel = QLabel(self.title + " - " + reading, alignment=Qt.AlignmentFlag.AlignCenter)
           readingBar = QHBoxLayout()
           
           self.read_button = QButton("Read")
@@ -64,7 +65,9 @@ class ReadingCard(QWidget):
           self.done_button = QButton("Done")
           self.done_button.clicked.connect(self.markSingleDone)
           readingBar.addWidget(self.done_button)
-          if self.settings.value('{}List{}Done'.format(plan, self.listNum), False) == False:
+          print("{}List{}Done".format(plan, self.listNum))
+          print(self.settings.value("{}List{}Done".format(plan, self.listNum)))
+          if self.settings.value('{}List{}Done'.format(plan, self.listNum), False) == "false":
                self.setStyleSheet(ACTIVE_PALETTE)
           else:
                self.setStyleSheet(UNACTIVE_PALETTE)
@@ -98,6 +101,8 @@ class ReadingCard(QWidget):
           self.settings.setValue("{}List{}Done".format(plan, self.listNum), True) #mark list as done
           current = int(self.settings.value("{}List{}".format(plan, self.listNum), 1)) #get the current list index
           self.settings.setValue("{}List{}".format(plan, self.listNum), current + 1) #increase index by 1
+          if current + 1 > len(self.list):
+               self.settings.setValue("{}List{}".format(plan, self.listNum), 1) #reset index to 1
           self.done_button.setText("Reset")
           self.done_button.clicked.disconnect(self.markSingleDone)
           self.done_button.clicked.connect(self.resetSingle)
@@ -124,8 +129,13 @@ class ReadingCard(QWidget):
                plan = "pgh"
           else:
                plan = "mcheyne"
+          print(self.settings.value("{}List{}Done".format(plan, self.listNum)))
+          print("{}List{}Done".format(plan, self.listNum))
           self.settings.setValue("{}List{}Done".format(plan, self.listNum), False) # Uncheck List
+          print(self.settings.value("{}List{}Done".format(plan, self.listNum)))
           self.done_button.setText("Done")
+          self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
+          self.titleLabel.setText(self.title + " - " + self.reading)
           self.done_button.clicked.disconnect(self.resetSingle)
           self.done_button.clicked.connect(self.markSingleDone)
           self.setStyleSheet(ACTIVE_PALETTE)
