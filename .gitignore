@@ -5,3 +5,4 @@ app.spec
 .DS_Store
 build/app/*
 dist/*
+.vscode/extensions.json
