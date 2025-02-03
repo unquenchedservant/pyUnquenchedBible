@@ -1,5 +1,6 @@
 import webbrowser
 from utilities import variables as var
+
 def openBibleGateway(parts):
     url = "https://www.biblegateway.com/passage/?search="
     for part in parts:
