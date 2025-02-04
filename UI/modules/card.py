@@ -98,29 +98,16 @@ class ReadingCard(QWidget):
                plan = "pgh"
           else:
                plan = "mcheyne"
-          self.settings.setValue("{}List{}Done".format(plan, self.listNum), True) #mark list as done
+          listsDone = int(self.settings.value('{}listsDone'.format(plan), 0))
+          self.settings.setValue("{}List{}Done".format(plan, self.listNum), "true") #mark list as done
           current = int(self.settings.value("{}List{}".format(plan, self.listNum), 1)) #get the current list index
-          self.settings.setValue("{}List{}".format(plan, self.listNum), current + 1) #increase index by 1
           if current + 1 > len(self.list):
-               self.settings.setValue("{}List{}".format(plan, self.listNum), 1) #reset index to 1
+               self.settings.setValue("{}List{}".format(plan, self.listNum), "1") #reset index to 1
           self.done_button.setText("Reset")
           self.done_button.clicked.disconnect(self.markSingleDone)
           self.done_button.clicked.connect(self.resetSingle)
-          self.setStyleSheet("""
-                              QWidget {
-                                   border-radius:10px;
-                              }
-                              QPushButton {
-                                   border-radius: 30px;
-                                   padding: 5px 10px;
-                              }
-                              QPushButton:pressed {
-                                   background-color: #4A4A4A;
-                              }
-                              QHBoxLayout {
-                                   border-radius: 10px;
-                              }
-                              """)
+          self.settings.setValue('{}listsDone'.format(plan), str(listsDone + 1))
+          self.setStyleSheet(UNACTIVE_PALETTE)
           self.done_button.setStyleSheet("")
           self.read_button.setStyleSheet("")
 
@@ -129,13 +116,19 @@ class ReadingCard(QWidget):
                plan = "pgh"
           else:
                plan = "mcheyne"
-          print(self.settings.value("{}List{}Done".format(plan, self.listNum)))
-          print("{}List{}Done".format(plan, self.listNum))
-          self.settings.setValue("{}List{}Done".format(plan, self.listNum), False) # Uncheck List
-          print(self.settings.value("{}List{}Done".format(plan, self.listNum)))
-          self.done_button.setText("Done")
+          listsDone = int(self.settings.value('{}listsDone'.format(plan), 0))
+          curIndex = int(self.settings.value("{}List{}".format(plan, self.listNum), 1))
+
+          self.settings.setValue("{}List{}".format(plan, self.listNum), str(curIndex + 1)) # Reset List
+          self.settings.setValue("{}List{}Done".format(plan, self.listNum), "false") # Uncheck List
+
           self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
           self.titleLabel.setText(self.title + " - " + self.reading)
+
+          self.settings.setValue('{}listsDone'.format(plan), str(listsDone - 1))
+
+          self.done_button.setText("Done")
           self.done_button.clicked.disconnect(self.resetSingle)
           self.done_button.clicked.connect(self.markSingleDone)
+          
           self.setStyleSheet(ACTIVE_PALETTE)
