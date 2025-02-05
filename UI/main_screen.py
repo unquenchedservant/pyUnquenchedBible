@@ -1,6 +1,7 @@
 from utilities import variables as v
-from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QPushButton
+from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QPushButton, QMenu
 from PyQt6.QtCore import QSettings
+from PyQt6.QtGui import QAction
 from datetime import datetime as dt
 from .modules import card
 from utilities import list_helpers as lh
@@ -25,6 +26,8 @@ class UnquenchedBible(QMainWindow):
         """
         #self.executor = concurrent.futures.ThreadPoolExecutor()
         self.is_complete = False
+        self.menu = None
+        self.readingMenu = None
         if self.settings.value('readingPlan','PGH') == 'PGH': # PGH, Mcheyne
             self.initPGH()
         else:
@@ -74,7 +77,10 @@ class UnquenchedBible(QMainWindow):
         container = QWidget()
         container.setLayout(main_layout)
         
+        self.handleMenu()
+
         self.setCentralWidget(container)
+
     
     def initMcheyne(self):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
@@ -91,7 +97,7 @@ class UnquenchedBible(QMainWindow):
         reading_card_layout.addWidget(self.card3, 1, 0)
         reading_card_layout.addWidget(self.card4, 1, 1)
 
-        self.markDoneButton = card.QPushButton('Mark All Lists Done')
+        self.markDoneButton = QPushButton('Mark All Lists Done')
         self.markDoneButton.clicked.connect(self.markAllDone)
         if int(self.settings.value('mcheynelistsDone', 0)) > 0 and int(self.settings.value('mcheynelistsDone', 0)) < 4:
             self.markDoneButton.setText('Mark Remaining Lists Done')
@@ -104,9 +110,34 @@ class UnquenchedBible(QMainWindow):
         main_layout.addWidget(self.markDoneButton)
         container = QWidget()
         container.setLayout(main_layout)
-        
+        self.handleMenu()
         self.setCentralWidget(container)
 
+    def handleMenu(self):
+        if not self.menu:
+            print("Test")
+            self.menu = self.menuBar()
+            settingsMenu = self.menu.addMenu('Settings')
+            self.readingMenu = QMenu('Reading Plan', self)   
+            settingsMenu.addMenu(self.readingMenu)
+        for action in self.readingMenu.actions():
+            self.readingMenu.removeAction(action)
+        pghChecked = "✓" if self.settings.value('readingPlan', 'PGH') == 'PGH' else ''
+        mcheyneChecked = "✓" if self.settings.value('readingPlan', 'PGH') == 'Mcheyne' else ''
+        pghAction = QAction('pgh{}'.format(pghChecked), self)
+        mcheyneAction = QAction('mcheyne'.format(mcheyneChecked), self)
+        
+        pghAction.triggered.connect(lambda: self.setActivePlan('PGH'))
+        mcheyneAction.triggered.connect(lambda: self.setActivePlan('Mcheyne'))
+        self.readingMenu.addAction(pghAction)
+        self.readingMenu.addAction(mcheyneAction)
+
+    def setActivePlan(self, plan):
+        self.settings.setValue('readingPlan', plan)
+        if plan == 'PGH':
+            self.initPGH()
+        else:
+            self.initMcheyne()
     def markAllDone(self):
         if self.settings.value('readingPlan', "PGH") == "PGH":
             plan = "pgh"
@@ -157,7 +188,6 @@ class UnquenchedBible(QMainWindow):
                 self.card10.markSingleDone()
                 print("Marking List 10")
         self.settings.setValue("{}listsDone".format(plan), max)
-        print(self.settings.value("{}listsDone".format(plan), 0))
         self.markDoneButton.setText('Reset All Lists')
         self.markDoneButton.clicked.disconnect(self.markAllDone)
         self.markDoneButton.clicked.connect(self.resetAllDone)
@@ -201,7 +231,6 @@ class UnquenchedBible(QMainWindow):
                 self.card10.resetSingle()
                 print("Resetting List 10")
         self.settings.setValue("{}listsDone".format(plan), 0)
-        print(self.settings.value("{}listsDone".format(plan), 0))
         self.markDoneButton.setText('Mark All Lists Done')
         self.markDoneButton.clicked.disconnect(self.resetAllDone)
         self.markDoneButton.clicked.connect(self.markAllDone)
