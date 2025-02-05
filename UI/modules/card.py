@@ -49,6 +49,7 @@ class ReadingCard(QWidget):
           self.day = datetime.datetime.now().day
           self.month = datetime.datetime.now().month
           self.year = datetime.datetime.now().year
+          print(self.year)
           if self.psalms:
                self.reading = self.getPsalmTitle()
           else:
@@ -149,7 +150,10 @@ class ReadingCard(QWidget):
           current = int(self.settings.value("{}List{}".format(plan, self.listNum), 1)) #get the current list index
           if current + 1 > len(self.list):
                self.settings.setValue("{}List{}".format(plan, self.listNum), "1") #reset index to 1
-          self.done_button.clicked.disconnect(self.markSingleDone)
+          try:
+               self.done_button.clicked.disconnect(self.markSingleDone)
+          except:
+               print("No connection to markSingleDone")
           if not self.psalms:
                self.done_button.setText("Reset")
                self.done_button.clicked.connect(self.resetSingle)

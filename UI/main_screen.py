@@ -5,12 +5,16 @@ from PyQt6.QtGui import QAction
 from datetime import datetime as dt
 from .modules import card
 from utilities import list_helpers as lh
+import datetime
+
 class UnquenchedBible(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle(v.APP_NAME)
         self.setGeometry(100, 100, 800, 300)
-
+        self.day = datetime.datetime.now().day
+        self.month = datetime.datetime.now().month
+        self.year = datetime.datetime.now().year
         self.settings = QSettings('UnquenchedServant','Unquenched-Bible')
         """
         self.settings.setValue('pghList1',1)
@@ -35,6 +39,17 @@ class UnquenchedBible(QMainWindow):
         else:
             self.initMcheyne()
         self.setupMidnightTimer()
+        if int(self.settings.value('yearLastComplete', 0)) < self.year:
+            print("Resetting - Year")
+            self.resetAllDone()
+        else:
+            if int(self.settings.value('monthLastComplete', 0)) < self.month:
+                print("Resetting - Month")
+                self.resetAllDone()
+            else:
+                if int(self.settings.value('dayLastComplete', 0)) < self.day:
+                    print("Resetting - Day")
+                    self.resetAllDone()
     
     def initPGH(self):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
@@ -257,5 +272,8 @@ class UnquenchedBible(QMainWindow):
                 self.card10.resetSingle()
         self.settings.setValue("{}listsDone".format(plan), 0)
         self.markDoneButton.setText('Mark All Lists Done')
-        self.markDoneButton.clicked.disconnect(self.resetAllDone)
+        try:
+            self.markDoneButton.clicked.disconnect(self.resetAllDone)
+        except:
+            print("Not connected")
         self.markDoneButton.clicked.connect(self.markAllDone)
