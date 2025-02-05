@@ -43,7 +43,7 @@ class UnquenchedBible(QMainWindow):
             self.psalms = True
         if self.psalms == "false":
             self.psalms = False
-        print("Psalms: ", self.psalms)
+        
         reading_card_layout = QGridLayout()
         self.card1 = card.ReadingCard(self, 'Gospels', lh.pgh_1[int(self.settings.value("pghList1", 1))-1], listNum=1, settings=self.settings, list=lh.pgh_1)
         self.card2 = card.ReadingCard(self, 'Pentateuch', lh.pgh_2[int(self.settings.value("pghList2", 1))-1], listNum=2, settings=self.settings, list=lh.pgh_2)
@@ -90,6 +90,11 @@ class UnquenchedBible(QMainWindow):
     
     def initMcheyne(self):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
+        self.psalms = self.settings.value('psalms', False)
+        if self.psalms == "true":
+            self.psalms = True
+        if self.psalms == "false":
+            self.psalms = False
         main_layout = QVBoxLayout()
 
         reading_card_layout = QGridLayout()
@@ -97,11 +102,15 @@ class UnquenchedBible(QMainWindow):
         self.card2 = card.ReadingCard(self, 'List 2', 'Genesis 1', listNum=2, settings=self.settings,list=None) 
         self.card3 = card.ReadingCard(self, 'List 3', 'Romans 1', listNum=3, settings=self.settings,list=None)
         self.card4 = card.ReadingCard(self, 'List 4', '1 Corinthians 1', listNum=4, settings=self.settings,list=None)
+        if self.psalms:
+            self.card5 = card.ReadingCard(self, "Psalms", "Psalm 1", listNum=5, settings=self.settings, list=None, psalms=True) # Playing with something. 
 
         reading_card_layout.addWidget(self.card1, 0, 0)
         reading_card_layout.addWidget(self.card2, 0, 1)
         reading_card_layout.addWidget(self.card3, 1, 0)
         reading_card_layout.addWidget(self.card4, 1, 1)
+        if self.psalms:
+            reading_card_layout.addWidget(self.card5, 2, 0)
 
         self.markDoneButton = QPushButton('Mark All Lists Done')
         self.markDoneButton.clicked.connect(self.markAllDone)
