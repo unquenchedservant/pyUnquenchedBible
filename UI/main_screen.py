@@ -1,6 +1,6 @@
 from utilities import variables as v
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QPushButton, QMenu
-from PyQt6.QtCore import QSettings
+from PyQt6.QtCore import QSettings, QTimer, QDateTime
 from PyQt6.QtGui import QAction
 from datetime import datetime as dt
 from .modules import card
@@ -34,6 +34,7 @@ class UnquenchedBible(QMainWindow):
             self.initPGH()
         else:
             self.initMcheyne()
+        self.setupMidnightTimer()
     
     def initPGH(self):
         self.setWindowTitle(dt.now().strftime('%m-%d'))
@@ -208,6 +209,24 @@ class UnquenchedBible(QMainWindow):
         self.markDoneButton.setText('Reset All Lists')
         self.markDoneButton.clicked.disconnect(self.markAllDone)
         self.markDoneButton.clicked.connect(self.resetAllDone)
+
+    def setupMidnightTimer(self):
+        now = QDateTime.currentDateTime()
+        midnight = QDateTime(now.date().addDays(1))
+        secsToMidnight = now.secsTo(midnight)
+
+        self.midnight_timer = QTimer(self)
+        self.midnight_timer.setSingleShot(True)
+        self.midnight_timer.timeout.connect(self.handleMidnight)
+        self.midnight_timer.start(secsToMidnight * 1000)
+    
+    # This should only be called once per app open
+    def handleMidnight(self):
+        self.resetAllDone()
+        self.midnight_timer.setInterval(24 * 60 * 60 * 1000)
+        self.midnight_timer.setSingleShot(False)
+        self.midnight_timer.connect(self.resetAllDone)
+        self.midnight_timer.start()
 
     def resetAllDone(self):
         if self.settings.value('readingPlan', "PGH") == "PGH":
