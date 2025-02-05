@@ -160,29 +160,34 @@ class ReadingCard(QWidget):
           self.read_button.setStyleSheet("")
 
      def resetSingle(self):
-          if not self.psalms:
-               if self.settings.value('readingPlan', "PGH") == "PGH":
-                    plan = "pgh"
-               else:
-                    plan = "mcheyne"
-               listsDone = int(self.settings.value('{}listsDone'.format(plan), 0))
-               curIndex = int(self.settings.value("{}List{}".format(plan, self.listNum), 1))
-          
-               self.settings.setValue("{}List{}".format(plan, self.listNum), str(curIndex + 1)) # Reset List
-               self.settings.setValue("{}List{}Done".format(plan, self.listNum), "false") # Uncheck List
+          if self.settings.value('readingPlan', "PGH") == "PGH":
+               plan = "pgh"
+          else:
+               plan = "mcheyne"
+          listsDone = int(self.settings.value('{}listsDone'.format(plan), 0))
+          curIndex = int(self.settings.value("{}List{}".format(plan, self.listNum), 1))
+     
+          self.settings.setValue("{}List{}".format(plan, self.listNum), str(curIndex + 1)) # Reset List
+          self.settings.setValue("{}List{}Done".format(plan, self.listNum), "false") # Uncheck List
 
-               self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
-          
-               self.titleLabel.setText(self.title + " - " + self.reading)
+          self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
+     
+          self.titleLabel.setText(self.title + " - " + self.reading)
 
-               self.settings.setValue('{}listsDone'.format(plan), str(listsDone - 1))
+          self.settings.setValue('{}listsDone'.format(plan), str(listsDone - 1))
 
-               self.done_button.setText("Done")
-               try:
-                   self.done_button.clicked.disconnect(self.resetSingle)
-               except:
-                   print("No connection to resetSingle")
-               
-               self.done_button.clicked.connect(self.markSingleDone)
+          self.done_button.setText("Done")
+          try:
+               self.done_button.clicked.disconnect(self.resetSingle)
+          except:
+               print("No connection to resetSingle")
+          if self.psalms:
+               self.done_button.setText("Next")
+               self.done_button.setEnabled(True)
+               self.done_button.clicked.connect(self.nextPsalm)
+               self.iteration = 1
+               self.titleLabel.setText(self.title + " - " + self.getPsalmTitle())
           
-               self.setStyleSheet(ACTIVE_PALETTE)
+          self.done_button.clicked.connect(self.markSingleDone)
+          
+          self.setStyleSheet(ACTIVE_PALETTE)

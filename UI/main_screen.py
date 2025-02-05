@@ -212,7 +212,7 @@ class UnquenchedBible(QMainWindow):
 
     def setupMidnightTimer(self):
         now = QDateTime.currentDateTime()
-        midnight = QDateTime(now.date().addDays(1).startOfDay())
+        midnight = QDateTime(now.date().addDays(1), QTime(0,0,0))
         secsToMidnight = now.secsTo(midnight)
         self.midnight_timer = QTimer(self)
         self.midnight_timer.setSingleShot(True)
