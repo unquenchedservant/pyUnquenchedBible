@@ -17,6 +17,7 @@ def openLogos(parts):
     logosRef = getLogosReference()
     logosURL = "logosres:{};ref={}.{}{};off=0".format(logosRes, logosRef, logosBook, str(chapter))
     webbrowser.open(logosURL)
+    
 def getLogosReference():
     logosReferences = {
         "ESV": "BibleESV",

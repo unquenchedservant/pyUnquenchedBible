@@ -5,6 +5,8 @@ from PyQt6.QtGui import QColor
 from utilities import scripture_helpers as sh
 from utilities import list_helpers as lh
 import datetime
+
+# TODO: Psalms logic - once marked done, no reset option should be available. 
 ACTIVE_PALETTE = """
                            QWidget {
                                 background-color:#383838;
@@ -61,9 +63,8 @@ class ReadingCard(QWidget):
                plan = "mcheyne"
           
           layout = QVBoxLayout()
-          self.titleLabel = QLabel(self.title + " - " + self.reading, alignment=Qt.AlignmentFlag.AlignCenter)
           readingBar = QHBoxLayout()
-          
+          self.titleLabel = QLabel(self.title + " - " + self.reading, alignment=Qt.AlignmentFlag.AlignCenter)
           self.read_button = QButton("Read")
           self.read_button.clicked.connect(self.openReading)
           readingBar.addWidget(self.read_button)
@@ -79,23 +80,29 @@ class ReadingCard(QWidget):
                self.setStyleSheet(ACTIVE_PALETTE)
           else:
                self.setStyleSheet(UNACTIVE_PALETTE)
-               self.done_button.setText("Reset")
-               if self.psalms:
+               if not self.psalms:
+                    self.done_button.setText("Reset")
                     try:
-                         self.done_button.clicked.disconnect(self.nextPsalm)
-                    except:
                          self.done_button.clicked.disconnect(self.markSingleDone)
+                    except:
+                         print("No connection to markSingleDone")
                     self.done_button.clicked.connect(self.resetSingle)
-               try:
-                    self.done_button.clicked.disconnect(self.markSingleDone)
-               except:
-                    print("No connection to markSingleDone")
-               self.done_button.clicked.connect(self.resetSingle)
+               else:
+                    self.done_button.setText("Completed")
+                    self.done_button.clicked.disconnect(self.nextPsalm)
+                    self.done_button.setEnabled(False)
+                    self.reading = self.finalPsalm()
+                    self.titleLabel.setText(self.title + " - " + self.reading)
           layout.addWidget(self.titleLabel)
           layout.addLayout(readingBar)
           
           self.setLayout(layout)
 
+     def finalPsalm(self):
+          if self.day == 31:
+               return "Day Off"
+          else:
+               return "Psalm {}".format(self.day + (30 * 4))
      def getPsalmTitle(self):
           if self.day == 31:
                return "Day Off"
@@ -141,9 +148,12 @@ class ReadingCard(QWidget):
           current = int(self.settings.value("{}List{}".format(plan, self.listNum), 1)) #get the current list index
           if current + 1 > len(self.list):
                self.settings.setValue("{}List{}".format(plan, self.listNum), "1") #reset index to 1
-          self.done_button.setText("Reset")
           self.done_button.clicked.disconnect(self.markSingleDone)
-          self.done_button.clicked.connect(self.resetSingle)
+          if not self.psalms:
+               self.done_button.setText("Reset")
+               self.done_button.clicked.connect(self.resetSingle)
+          else:
+               self.done_button.isEnabled = False
           self.settings.setValue('{}listsDone'.format(plan), str(listsDone + 1))
           self.setStyleSheet(UNACTIVE_PALETTE)
           self.done_button.setStyleSheet("")
