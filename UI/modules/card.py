@@ -47,6 +47,8 @@ class ReadingCard(QWidget):
           self.iteration = 1
           self.psalms = psalms
           self.day = datetime.datetime.now().day
+          self.month = datetime.datetime.now().month
+          self.year = datetime.datetime.now().year
           if self.psalms:
                self.reading = self.getPsalmTitle()
           else:
@@ -155,6 +157,12 @@ class ReadingCard(QWidget):
                self.done_button.setText("Completed")
                self.done_button.setEnabled(False)
           self.settings.setValue('{}listsDone'.format(plan), str(listsDone + 1))
+          listsDone = listsDone + 1
+          if listsDone == 10 and self.settings.value('allowPartial', False) != True:
+               self.settings.setValue('dayLastComplete', datetime.datetime.now().day)
+               self.settings.setValue('monthLastComplete', datetime.datetime.now().month)
+               self.settings.setValue('yearLastComplete', datetime.datetime.now().year)
+
           self.setStyleSheet(UNACTIVE_PALETTE)
           self.done_button.setStyleSheet("")
           self.read_button.setStyleSheet("")
