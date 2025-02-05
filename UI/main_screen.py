@@ -1,6 +1,6 @@
 from utilities import variables as v
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QWidget, QGridLayout, QPushButton, QMenu
-from PyQt6.QtCore import QSettings, QTimer, QDateTime
+from PyQt6.QtCore import QSettings, QTimer, QDateTime, QTime
 from PyQt6.QtGui import QAction
 from datetime import datetime as dt
 from .modules import card
@@ -212,9 +212,8 @@ class UnquenchedBible(QMainWindow):
 
     def setupMidnightTimer(self):
         now = QDateTime.currentDateTime()
-        midnight = QDateTime(now.date().addDays(1))
+        midnight = QDateTime(now.date().addDays(1).startOfDay())
         secsToMidnight = now.secsTo(midnight)
-
         self.midnight_timer = QTimer(self)
         self.midnight_timer.setSingleShot(True)
         self.midnight_timer.timeout.connect(self.handleMidnight)
@@ -225,7 +224,7 @@ class UnquenchedBible(QMainWindow):
         self.resetAllDone()
         self.midnight_timer.setInterval(24 * 60 * 60 * 1000)
         self.midnight_timer.setSingleShot(False)
-        self.midnight_timer.connect(self.resetAllDone)
+        self.midnight_timer.timeout.connect(self.resetAllDone)
         self.midnight_timer.start()
 
     def resetAllDone(self):
