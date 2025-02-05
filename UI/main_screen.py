@@ -134,6 +134,9 @@ class UnquenchedBible(QMainWindow):
             self.settingsMenu = self.menu.addMenu('Settings')
             self.readingMenu = QMenu('Reading Plan', self)   
             self.settingsMenu.addMenu(self.readingMenu)
+            self.exitAction = QAction('Exit', self)
+            self.exitAction.triggered.connect(self.close)
+            self.menu.addAction(self.exitAction)
         for action in self.settingsMenu.actions():
             self.settingsMenu.removeAction(action)
         for action in self.readingMenu.actions():
@@ -155,8 +158,6 @@ class UnquenchedBible(QMainWindow):
         psalmsAction = QAction("Psalms{}".format(psalmsChecked), self)
         psalmsAction.triggered.connect(lambda: self.changePsalms())
         self.settingsMenu.addAction(psalmsAction)
-
-        self.settingsMenu.addAction('Exit', self.close)
 
 
     def changePsalms(self):
