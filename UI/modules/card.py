@@ -153,30 +153,37 @@ class ReadingCard(QWidget):
                self.done_button.setText("Reset")
                self.done_button.clicked.connect(self.resetSingle)
           else:
-               self.done_button.isEnabled = False
+               self.done_button.setText("Completed")
+               self.done_button.setEnabled(False)
           self.settings.setValue('{}listsDone'.format(plan), str(listsDone + 1))
           self.setStyleSheet(UNACTIVE_PALETTE)
           self.done_button.setStyleSheet("")
           self.read_button.setStyleSheet("")
 
      def resetSingle(self):
-          if self.settings.value('readingPlan', "PGH") == "PGH":
-               plan = "pgh"
-          else:
-               plan = "mcheyne"
-          listsDone = int(self.settings.value('{}listsDone'.format(plan), 0))
-          curIndex = int(self.settings.value("{}List{}".format(plan, self.listNum), 1))
-
-          self.settings.setValue("{}List{}".format(plan, self.listNum), str(curIndex + 1)) # Reset List
-          self.settings.setValue("{}List{}Done".format(plan, self.listNum), "false") # Uncheck List
-
-          self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
-          self.titleLabel.setText(self.title + " - " + self.reading)
-
-          self.settings.setValue('{}listsDone'.format(plan), str(listsDone - 1))
-
-          self.done_button.setText("Done")
-          self.done_button.clicked.disconnect(self.resetSingle)
-          self.done_button.clicked.connect(self.markSingleDone)
+          if not self.psalms:
+               if self.settings.value('readingPlan', "PGH") == "PGH":
+                    plan = "pgh"
+               else:
+                    plan = "mcheyne"
+               listsDone = int(self.settings.value('{}listsDone'.format(plan), 0))
+               curIndex = int(self.settings.value("{}List{}".format(plan, self.listNum), 1))
           
-          self.setStyleSheet(ACTIVE_PALETTE)
+               self.settings.setValue("{}List{}".format(plan, self.listNum), str(curIndex + 1)) # Reset List
+               self.settings.setValue("{}List{}Done".format(plan, self.listNum), "false") # Uncheck List
+
+               self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
+          
+               self.titleLabel.setText(self.title + " - " + self.reading)
+
+               self.settings.setValue('{}listsDone'.format(plan), str(listsDone - 1))
+
+               self.done_button.setText("Done")
+               try:
+                   self.done_button.clicked.disconnect(self.resetSingle)
+               except:
+                   print("No connection to resetSingle")
+               
+               self.done_button.clicked.connect(self.markSingleDone)
+          
+               self.setStyleSheet(ACTIVE_PALETTE)
