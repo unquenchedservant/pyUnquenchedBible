@@ -4,7 +4,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QColor
 from utilities import scripture_helpers as sh
 from utilities import list_helpers as lh
-
+import datetime
 ACTIVE_PALETTE = """
                            QWidget {
                                 background-color:#383838;
@@ -38,11 +38,17 @@ UNACTIVE_PALETTE = """
                            }
                            """
 class ReadingCard(QWidget):
-     def __init__(self, parent=None, title="", reading="", listNum=1, settings=None, list=None):
+     def __init__(self, parent=None, title="", reading="", listNum=1, settings=None, list=None, psalms=False):
           super().__init__(parent)
           self.setAutoFillBackground(True)
           self.title = title
-          self.reading = reading
+          self.iteration = 1
+          self.psalms = psalms
+          self.day = datetime.datetime.now().day
+          if self.psalms:
+               self.reading = self.getPsalmTitle()
+          else:
+               self.reading = reading
           self.listNum = listNum
           self.list = list
           self.settings = settings
@@ -55,29 +61,61 @@ class ReadingCard(QWidget):
                plan = "mcheyne"
           
           layout = QVBoxLayout()
-          self.titleLabel = QLabel(self.title + " - " + reading, alignment=Qt.AlignmentFlag.AlignCenter)
+          self.titleLabel = QLabel(self.title + " - " + self.reading, alignment=Qt.AlignmentFlag.AlignCenter)
           readingBar = QHBoxLayout()
           
           self.read_button = QButton("Read")
           self.read_button.clicked.connect(self.openReading)
           readingBar.addWidget(self.read_button)
-          
-          self.done_button = QButton("Done")
-          self.done_button.clicked.connect(self.markSingleDone)
+          print("ITERATION: ", self.iteration)
+          if self.psalms and self.iteration != 5:
+               self.done_button = QButton("Next")
+               self.done_button.clicked.connect(self.nextPsalm)
+          else:
+               self.done_button = QButton("Done")
+               self.done_button.clicked.connect(self.markSingleDone)
           readingBar.addWidget(self.done_button)
-          print("{}List{}Done".format(plan, self.listNum))
-          print(self.settings.value("{}List{}Done".format(plan, self.listNum)))
           if self.settings.value('{}List{}Done'.format(plan, self.listNum), False) == "false":
                self.setStyleSheet(ACTIVE_PALETTE)
           else:
                self.setStyleSheet(UNACTIVE_PALETTE)
                self.done_button.setText("Reset")
-               self.done_button.clicked.disconnect(self.markSingleDone)
+               if self.psalms:
+                    try:
+                         self.done_button.clicked.disconnect(self.nextPsalm)
+                    except:
+                         self.done_button.clicked.disconnect(self.markSingleDone)
+                    self.done_button.clicked.connect(self.resetSingle)
+               try:
+                    self.done_button.clicked.disconnect(self.markSingleDone)
+               except:
+                    print("No connection to markSingleDone")
                self.done_button.clicked.connect(self.resetSingle)
           layout.addWidget(self.titleLabel)
           layout.addLayout(readingBar)
           
           self.setLayout(layout)
+
+     def getPsalmTitle(self):
+          if self.day == 31:
+               return "Day Off"
+          else:
+               if self.iteration == 1:
+                    return "Psalm {}".format(self.day)
+               else:
+                    return "Psalms {}".format(self.day + (30 * (self.iteration - 1)))
+          
+     def nextPsalm(self):
+          self.iteration = self.iteration + 1
+          self.reading = self.getPsalmTitle()
+          self.titleLabel.setText(self.title + " - " + self.reading)
+          if self.iteration == 5:
+               self.done_button.setText("Done")
+               self.done_button.clicked.disconnect(self.nextPsalm)
+               self.done_button.clicked.connect(self.markSingleDone)
+          self.setStyleSheet(ACTIVE_PALETTE)
+          self.done_button.setStyleSheet("")
+          self.read_button.setStyleSheet("")
 
      def setTitle(self, title):
           self.title = title
