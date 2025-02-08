@@ -138,9 +138,9 @@ class ReadingCard(QWidget):
      def openReading(self):
           currentReading = self.reading
           parts = currentReading.split()
-          if self.settings.value('prefBible','bible_gateway') == 'bible_gateway':
+          if self.settings.value('bibleType') == 'BibleGateway':
                sh.openBibleGateway(parts)
-          else:
+          elif self.settings.value('bibleType') == 'Logos':
                sh.openLogos(parts)
 
      def markSingleDone(self):

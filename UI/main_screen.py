@@ -6,6 +6,7 @@ from datetime import datetime as dt
 from .modules import card
 from utilities import list_helpers as lh
 import datetime
+import sys
 
 class UnquenchedBible(QMainWindow):
     def __init__(self):
@@ -157,17 +158,17 @@ class UnquenchedBible(QMainWindow):
             self.settingsMenu.removeAction(action)
         for action in self.readingMenu.actions():
             self.readingMenu.removeAction(action)
-        self.settingsMenu.addMenu(self.readingMenu)
+        #self.settingsMenu.addMenu(self.readingMenu)
 
         # Reading Plan Toggle
-        pghChecked = "✓" if self.settings.value('readingPlan', 'PGH') == 'PGH' else ''
-        mcheyneChecked = "✓" if self.settings.value('readingPlan', 'PGH') == 'Mcheyne' else ''
-        pghAction = QAction('pgh{}'.format(pghChecked), self)
-        mcheyneAction = QAction('mcheyne{}'.format(mcheyneChecked), self)
-        pghAction.triggered.connect(lambda: self.setActivePlan('PGH'))
-        mcheyneAction.triggered.connect(lambda: self.setActivePlan('Mcheyne'))
-        self.readingMenu.addAction(pghAction)
-        self.readingMenu.addAction(mcheyneAction)
+        #pghChecked = "✓" if self.settings.value('readingPlan', 'PGH') == 'PGH' else ''
+        #mcheyneChecked = "✓" if self.settings.value('readingPlan', 'PGH') == 'Mcheyne' else ''
+        #pghAction = QAction('pgh{}'.format(pghChecked), self)
+        #mcheyneAction = QAction('mcheyne{}'.format(mcheyneChecked), self)
+        #pghAction.triggered.connect(lambda: self.setActivePlan('PGH'))
+        #mcheyneAction.triggered.connect(lambda: self.setActivePlan('Mcheyne'))
+        #self.readingMenu.addAction(pghAction)
+        #self.readingMenu.addAction(mcheyneAction)
 
         # Psalms Toggle
         psalmsChecked = "✓" if self.settings.value('psalms', False) else ''
@@ -175,6 +176,25 @@ class UnquenchedBible(QMainWindow):
         psalmsAction.triggered.connect(lambda: self.changePsalms())
         self.settingsMenu.addAction(psalmsAction)
 
+        # Bible Types
+        self.bibleMenu = QMenu('Bible Source', self)
+        self.settingsMenu.addMenu(self.bibleMenu)
+        logosChecked = "✓" if self.settings.value('bibleType', 'Logos') == 'Logos' else ''
+        logosAction = QAction('Logos{}'.format(logosChecked), self)
+        logosAction.triggered.connect(lambda: self.setBibleType('Logos'))
+        logosWebChecked = "✓" if self.settings.value('bibleType', 'Logos') == 'LogosWeb' else ''
+        logosWebAction = QAction('LogosWeb{}'.format(logosWebChecked), self)
+        logosWebAction.triggered.connect(lambda: self.setBibleType('LogosWeb'))
+        bgChecked = "✓" if self.settings.value('bibleType', 'Logos') == 'BibleGateway' else ''
+        bgAction = QAction('BibleGateway{}'.format(bgChecked), self)
+        bgAction.triggered.connect(lambda: self.setBibleType('BibleGateway'))
+        if not sys.platform == "linux": #linux doesn't have Logos. hence Logos web
+            self.bibleMenu.addAction(logosAction)
+        self.bibleMenu.addAction(bgAction)
+       # self.bibleMenu.addAction(logosWebAction)
+       # I just took one look at the URL scheme for Logos web and said "nope."
+    def setBibleType(self, bibleType):
+        self.settings.setValue('bibleType', bibleType)
 
     def changePsalms(self):
         if self.settings.value('psalms', False):
