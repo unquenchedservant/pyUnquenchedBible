@@ -44,12 +44,11 @@ class ReadingCard(QWidget):
           super().__init__(parent)
           self.setAutoFillBackground(True)
           self.title = title
-          self.iteration = 1
           self.psalms = psalms
+          self.settings = settings
           self.day = datetime.datetime.now().day
           self.month = datetime.datetime.now().month
           self.year = datetime.datetime.now().year
-          print(self.year)
           if self.psalms:
                self.reading = self.getPsalmTitle()
           else:
@@ -71,7 +70,7 @@ class ReadingCard(QWidget):
           self.read_button = QButton("Read")
           self.read_button.clicked.connect(self.openReading)
           readingBar.addWidget(self.read_button)
-          if self.psalms and self.iteration != 5:
+          if self.psalms and int(self.settings.value('psalmsIteration', 1)) != 5:
                self.done_button = QButton("Next")
                self.done_button.clicked.connect(self.nextPsalm)
           else:
@@ -105,20 +104,24 @@ class ReadingCard(QWidget):
                return "Day Off"
           else:
                return "Psalm {}".format(self.day + (30 * 4))
+          
      def getPsalmTitle(self):
           if self.day == 31:
                return "Day Off"
           else:
-               if self.iteration == 1:
+               if int(self.settings.value('psalmsIteration', 1)) == 1:
                     return "Psalm {}".format(self.day)
                else:
-                    return "Psalms {}".format(self.day + (30 * (self.iteration - 1)))
+                    return "Psalms {}".format(self.day + (30 * (int(self.settings.value('psalmsIteration')) - 1)))
           
      def nextPsalm(self):
-          self.iteration = self.iteration + 1
+          curIteration = int(self.settings.value('psalmsIteration', 1)) + 1
+          self.settings.setValue('psalmsIteration', curIteration)
           self.reading = self.getPsalmTitle()
           self.titleLabel.setText(self.title + " - " + self.reading)
-          if self.iteration == 5:
+          print(self.settings.value('psalmsIteration', 1))
+          if int(self.settings.value('psalmsIteration', 1)) == 5:
+               print("This is it bud, it should work")
                self.done_button.setText("Done")
                self.done_button.clicked.disconnect(self.nextPsalm)
                self.done_button.clicked.connect(self.markSingleDone)
@@ -178,17 +181,16 @@ class ReadingCard(QWidget):
                plan = "mcheyne"
           listsDone = int(self.settings.value('{}listsDone'.format(plan), 0))
           curIndex = int(self.settings.value("{}List{}".format(plan, self.listNum), 1))
-     
-          self.settings.setValue("{}List{}".format(plan, self.listNum), str(curIndex + 1)) # Reset List
+          if not self.psalms:
+               self.settings.setValue("{}List{}".format(plan, self.listNum), str(curIndex + 1)) # Reset List
           self.settings.setValue("{}List{}Done".format(plan, self.listNum), "false") # Uncheck List
-
-          self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
+          if not self.psalms:
+               self.reading = self.list[int(self.settings.value("{}List{}".format(plan, self.listNum), 1))-1]
      
-          self.titleLabel.setText(self.title + " - " + self.reading)
+               self.titleLabel.setText(self.title + " - " + self.reading)
 
           self.settings.setValue('{}listsDone'.format(plan), str(listsDone - 1))
 
-          self.done_button.setText("Done")
           try:
                self.done_button.clicked.disconnect(self.resetSingle)
           except:
@@ -197,9 +199,12 @@ class ReadingCard(QWidget):
                self.done_button.setText("Next")
                self.done_button.setEnabled(True)
                self.done_button.clicked.connect(self.nextPsalm)
-               self.iteration = 1
+               self.settings.setValue('psalmsIteration', 1)
                self.titleLabel.setText(self.title + " - " + self.getPsalmTitle())
+          else:
+               self.done_button.setText("Done")
+               self.done_button.clicked.connect(self.markSingleDone)
           
-          self.done_button.clicked.connect(self.markSingleDone)
+          
           
           self.setStyleSheet(ACTIVE_PALETTE)
